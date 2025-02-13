@@ -1,0 +1,36 @@
+#!/bin/bash
+#SBATCH --output=/gpfs/home6/ekoornstra/logs/slurm-%j.out
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=e.koornstra@erasmusmc.nl
+#SBATCH --nodes=1
+#SBATCH --tasks=1
+#SBATCH --time=1:00:00
+#SBATCH --cpus-per-task=32
+
+module load 2022
+module load R/4.2.1-foss-2022a
+export R_LIBS=/gpfs/home6/ekoornstra/rpackages:$R_LIBS
+
+echo "running NSCs for mpra variants"
+inpath="/gpfs/home6/ekoornstra/neurompra/masterfile/mpra_20papers_masterfile_withcounts.txt"
+outpath="/gpfs/home6/ekoornstra/neurompra/masterfile/mpra_20papers_masterfile_withcounts_ANNOTATED.txt"
+
+Rscript add_all_genomic_features_28022024.R ${inpath} ${outpath}
+
+#echo "running for HepG2 controls"
+#inpath2='/gpfs/home6/ekoornstra/raqtls/freeze6/HepG2/'
+#outpath2='/gpfs/home6/ekoornstra/raqtls/freeze6/HepG2/SuRE_HepG2_entire_df_controls_updated_ANNOTATIONS_03042024.txt'
+
+#Rscript add_all_genomic_features_HEPG2_28022024.R ${inpath2}SuRE_HepG2_entire_df_controls_updated_220823.txt ${outpath2}
+
+#echo "running for K562 controls"
+#inpath3='/gpfs/home6/ekoornstra/raqtls/freeze6/K562/'
+#outpath3='/gpfs/home6/ekoornstra/raqtls/freeze6/K562/SuRE_K562_entire_df_controls_updated_ANNOTATIONS_03042024.txt'
+
+#Rscript add_all_genomic_features_K562_28022024.R ${inpath3}SuRE_K562_entire_df_controls_updated_220823.txt ${outpath3}
+
+#echo "running for raqtls in loci"
+#inpath="/gpfs/home6/ekoornstra/surexgwas/freeze7/raqtls-in-loci_list_all-phenos_12042024.txt"
+#outpath="/gpfs/home6/ekoornstra/surexgwas/freeze7/raqtls-in-loci_list_all-phenos_12042024_ANNOTATED.txt"
+
+#Rscript add_all_genomic_features_28022024.R ${inpath} ${outpath}
