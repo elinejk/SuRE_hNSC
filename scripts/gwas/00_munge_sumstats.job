@@ -1,0 +1,61 @@
+#!/bin/bash
+#SBATCH --output=/home/ekoornstra/logs/slurm-%j.out
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=e.koornstra@erasmusmc.nl
+#SBATCH --nodes=1
+#SBATCH --tasks=1
+#SBATCH --time=1:00:00
+#SBATCH --cpus-per-task=32
+
+
+#paths
+#mergealleles='/gpfs/home6/ekoornstra/ldsc/hapmapsnps/w_hm3.snps'
+sumstats="/gpfs/home6/ekoornstra/summary_statistics/hg19/rbc_N172952_narrow_form.tsv.gz"
+output="/gpfs/home6/ekoornstra/ldsc/freeze7/sumstats/astle2016_rbc_N172952_narrow_form"
+
+sumstats2="/gpfs/home6/ekoornstra/summary_statistics/hg19/wbc_N172435_narrow_form.tsv.gz"
+output2="/gpfs/home6/ekoornstra/ldsc/freeze7/sumstats/astle2016_wbc_N172435_narrow_form"
+
+#sumstats3='/gpfs/home6/ekoornstra/summary_statistics/hg19/GIANT_HEIGHT_YENGO_2022_GWAS_SUMMARY_STATS_ALL_wZscore.txt.gz'
+#output3='/gpfs/home6/ekoornstra/ldsc/FINAL_FILES/sumstats/yengo2022_height_giant_GWAS_SUMMARY_STATS_ALL_wZscore'
+
+#sumstats4='/gpfs/home6/ekoornstra/summary_statistics/hg19/PGC3_SCZ_wave3.primary.autosome.public.v3.txt.gz'
+#output4='/gpfs/home6/ekoornstra/ldsc/FINAL_FILES/sumstats/trubetskoy2022_scz_pgc3_wave3_primary'
+
+# load packages
+echo loading modules
+module purge
+module load 2021
+module load Anaconda3/2021.05
+ 
+# change to ldsc directory
+echo changing to ldsc directory
+cd ~/opt/ldsc/
+
+# create an environment with ldsc dependencies
+echo ldsc environment
+conda env create --file environment.yml
+source activate ldsc
+
+# reload modules
+echo reloading modules
+module purge
+module load 2021
+module load Python/2.7.18-GCCcore-10.3.0-bare
+
+# run ldsc munge sumstats
+#echo running munge sumstats
+#python2 munge_sumstats.py --sumstats ${sumstats} --merge-alleles ${mergealleles} --out ${output}
+
+echo running munge sumstats wo filter
+python2 munge_sumstats.py --sumstats ${sumstats} --out ${output} --N 172952 --snp ID_dbSNP49 --a1 REF --a2 ALT
+
+## RUN FOR SECOND PHENOTYPE
+python2 munge_sumstats.py --sumstats ${sumstats2} --out ${output2} --N 172435 --snp ID_dbSNP49 --a1 REF --a2 ALT
+
+## RUN FOR THIRD PHENOTYPE
+#python2 munge_sumstats.py --sumstats ${sumstats3} --out ${output3} --ignore Z
+
+## RUN FOR FOURTH PHENOTYPE
+#python2 munge_sumstats.py --sumstats ${sumstats4} --out ${output4} --N-con-col NCON --N-cas-col NCAS --snp ID
+
