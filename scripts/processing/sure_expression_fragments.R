@@ -13,7 +13,7 @@ snp <- args[2]
 print(paste0("generating plots for SNP: ", snp))
 
 # files
-df_path <- "/projects/0/AdamsLab/Projects/sure/project_on_processing/results/results_eline/freeze6/for_plots/freeze6_reads/"
+df_path <- "/projects/0/AdamsLab/Projects/sure/project_on_processing/results/results_eline/freeze7/for_plots/freeze7_reads/"
 out_path <- "/gpfs/home6/ekoornstra/raqtls/freeze7/expression_plots/"
 
 df <- fread(paste0(df_path, "reads_sure_", chr, ".txt.gz"))
