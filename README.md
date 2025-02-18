@@ -39,7 +39,7 @@ Contains all the scripts used for the various analyses involving overlap with GW
 
 **5.1 LDSC:** contains all the scripts used to 
 - run LDSC;
-- generate the plots showing the Enrichment (Figures 4A, and 4B). \
+- generate the plots showing the Enrichment (Figures 4A, and 4B). 
 
 **5.2 raQTLs in loci:** contains all the scripts used to
 - determine which GWAS SNPs were tested by SuRE and were raQTLs;
