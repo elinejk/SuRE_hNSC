@@ -1,0 +1,49 @@
+#!/bin/bash
+#SBATCH --output=/home/ekoornstra/logs/slurm-%j.out
+#SBATCH --mail-type=END
+#SBATCH --mail-user=e.koornstra@erasmusmc.nl
+#SBATCH --nodes=1
+#SBATCH --tasks=1
+#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=32
+
+## before running this script you should have already made annotation files
+
+# load packages
+echo loading modules
+module purge
+module load 2021
+module load Anaconda3/2021.05
+
+# change directory
+echo changing to ldsc directory
+cd ~/opt/ldsc/
+
+# create an environment with ldsc dependencies
+conda env create --file environment.yml
+
+echo activating ldsc environment
+source activate ldsc
+
+# run ldsc partitioned ld score calculation in parallel for the 22 autosomes
+echo reloading modules
+module purge
+module load 2021
+module load Python/2.7.18-GCCcore-10.3.0-bare
+
+echo running ldsc
+
+for i in {1..22}
+do
+python2 /gpfs/home6/ekoornstra/opt/ldsc/ldsc.py --l2 \
+  --bfile /gpfs/home6/ekoornstra/ldsc/freeze7/1000G_EUR_Phase3_plink/1000G.EUR.QC.$i \
+  --ld-wind-cm 1 \
+  --annot /gpfs/home6/ekoornstra/ldsc/freeze7/annotation_ld/1000G_Phase3_baselineLD_v2.2_nohm3filter_hnsc/baselineLD.v2.2.sure.hnsc.$i.annot.gz \
+  --out /gpfs/home6/ekoornstra/ldsc/freeze7/annotation_ld/1000G_Phase3_baselineLD_v2.2_nohm3filter_hnsc/baselineLD.v2.2.sure.hnsc.$i \
+  --print-snps /gpfs/home6/ekoornstra/ldsc/freeze7/sure.SNPs.txt &
+done
+
+wait
+echo "all done"
+
+
