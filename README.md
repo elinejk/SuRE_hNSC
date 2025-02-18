@@ -13,8 +13,7 @@ Contains the scripts used to
 
 ### 2. Genomic Annotations
 Contains the scripts used to 
-- annotate the SuRE data with enhancers, promoters, DHS, and Gencode genetic information;
-- calculate significant differences between raQTLs, control SNPs and all SuRE SNPs (was also used for the TFBS section below); and
+- annotate the SuRE data with enhancers, promoters, DHS, and Gencode genetic information; and
 - generate plots showing the fold enrichment (Figure 1E) or percentage of overlap (Figures S1B, S1C, and S1D)
 
 ### 3. TFBS
@@ -49,3 +48,6 @@ Contains all the scripts used for the various analyses involving overlap with GW
 **5.3 Distance to the lead SNP:** contains all the scripts used to
 - determine the distance to the lead SNP for raQTLs, control SNPs and all SuRE SNPs within 100kb of a lead SNP that reached genome-wide significance in the GWAS
 - generate a plot showing the distribution of the distance to the lead SNP (Figure 4F).
+
+### 6. Statistics
+ Contains the script used to perform the Fisher exact test. It was used for both the genomic annotation comparisons, the TFBS comparisons, eGene tissue distribution comparisons, and distance to the lead SNP comparisons.
