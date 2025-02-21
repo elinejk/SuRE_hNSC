@@ -8,6 +8,6 @@ The scripts that were used to overlap raQTLs, control SNPs and all SuRE SNPs wit
 
 ## 2. Generate plots
 It is important that you have already calculated the p-values for each comparison using the Fisher exact test (in the 'statistics' directory).
-# 2.1 Overlap percentage plots
+### 2.1 Overlap percentage plots
 
-# 2.2 Fold enrichment plots
+### 2.2 Fold enrichment plots
