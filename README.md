@@ -19,7 +19,7 @@ Contains the scripts used to
 ### 3. TFBS
 Contains the scripts used to 
 - annotate the SuRE data with TFBS from SNP2TFBS;
-- generate plots showing the overlap and concordance (Figures 1F, 1G, S1E, and S1F). \
+- generate plots showing the overlap and concordance (Figures 1F, 1G, S1E, and S1F). 
 
 Also contains the scripts used for the TFBS enrichment analyses: ..... (Figures 2, and S2)
 
