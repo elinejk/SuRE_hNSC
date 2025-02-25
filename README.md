@@ -14,7 +14,7 @@ Contains the scripts used to
 ### 2. Genomic Annotations
 Contains the scripts used to 
 - annotate the SuRE data with enhancers, promoters, DHS, and Gencode genetic information; and
-- generate plots showing the fold enrichment (Figure 1E) or percentage of overlap (Figures S1B, S1C, and S1D)
+- generate plots showing the fold enrichment (Figures 1E, S1C, and S1D) or percentage of overlap (Figure S1B)
 
 ### 3. TFBS
 Contains the scripts used to 
