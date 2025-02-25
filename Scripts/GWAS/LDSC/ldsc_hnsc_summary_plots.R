@@ -3,24 +3,19 @@ library(dplyr)
 library(data.table)
 library(forcats)
 
-path <- "V:/ddata/CELB/poot/Eline Koornstra/LDSC/FINAL_FILES/freeze6/hNSC_only/"
+path <- "V:/ddata/CELB/poot/Eline Koornstra/LDSC/FINAL_FILES/freeze7/"
 
-results <- fread(paste0(path, "LDSC_hNSC_freeze6_summary_22122023.txt"))
+results <- fread(paste0(path, "LDSC_hNSC_freeze7_summary_17042024.txt"))
 
 ylimit <- max(results$Enrichment + results$Enrichment_std_error + 1)
 
-# add significance, > 0.05 not sign, > 0.01 indicates p-values 0.01 - 0.05, > 0.001 indicates 0.001-0.01 etc
-#results <- results %>%
-#  mutate(label= case_when(
-#    Enrichment_p > 0.05 ~ "", Enrichment_p > 0.01 ~ "*",
-#    Enrichment_p > 0.001 ~"**", !is.na(Enrichment_p) ~ "***",
-#    TRUE ~ NA_character_
-#  ))
+phenos <- c("CD", "ADHD", "ASD", "BPD", "CP", "IQ", "MDD", "SCZ")
 
-results <- results %>%
-  mutate(label= ifelse(Prop._h2 > 0, round(Enrichment_p, digits=2), " "))
+results <- results %>% 
+    filter(Phenotype %in% phenos) %>%
+    mutate(label= ifelse(Prop._h2 > 0, round(Enrichment_p, digits=2), " "))
 
-results$Phenotype= factor(results$Phenotype, levels= c("CAD", "ADHD", "ASD", "BPD", "CP", "IQ", "MDD", "SCZ"))
+results$Phenotype= factor(results$Phenotype, levels= phenos)
 
 global_size = 14
 
@@ -32,7 +27,7 @@ ldscplot <- ggplot(results, aes(x=Phenotype, y=Enrichment, fill = Phenotype)) +
   #scale_fill_manual(values = c("black", "#E69F00", "#56B4E9", "#009E73", 
   #                             "#ECE242", "#0072B2","#D55E00","#C46FA0")) +
   scale_fill_manual(values = c("black", "#fb8808", "#d84420", "#c06000", 
-                               "#7f32bd", "#5770ff","#55a0fb","#fa98c7")) +
+                               "#7f32bd", "#5770ff","#87BEFF","#fa98c7")) +
   labs(x="Phenotype", y="Enrichment (Prop. h2g / Prop. SNPs)", title = "hNSC raQTLs")+
   theme_classic() +
   geom_hline(yintercept=1, linetype="dashed") +
@@ -41,4 +36,4 @@ ldscplot <- ggplot(results, aes(x=Phenotype, y=Enrichment, fill = Phenotype)) +
 
 ldscplot
 
-ggsave(paste0(path, "plots/hNSC-summary_1KG_heritability-enr_freeze6_09022024.pdf"), ldscplot, units="mm",width=175, height =200)
+ggsave(paste0(path, "figures/hNSC-summary-CD_heritability-enr_freeze7_17042024.pdf"), ldscplot, units="mm",width=175, height =200)
