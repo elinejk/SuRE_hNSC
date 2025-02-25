@@ -46,7 +46,7 @@ Contains all the scripts used for the various analyses involving overlap with GW
 - generate GWAS locus plots (Figures 5A, and 5B).
 
 **5.3 Distance to the lead SNP:** contains all the scripts used to
-- determine the distance to the lead SNP for raQTLs, control SNPs and all SuRE SNPs within 100kb of a lead SNP that reached genome-wide significance in the GWAS
+- determine the distance to the lead SNP for raQTLs, control SNPs and all SuRE SNPs that reached genome-wide significance in the GWAS and are located within 100kb of a lead SNP 
 - generate a plot showing the distribution of the distance to the lead SNP (Figure 4F).
 
 ### 6. Statistics
