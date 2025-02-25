@@ -28,10 +28,10 @@ Contains the scripts used to
 - overlap raQTLs and control SNPs with p > 0.5 with GTEX V7 eQTL data for brain tissues, fibroblasts, whole blood, and liver;
 - generate plots showing the overlap and concordance with eQTLs (Figure 3A);
 - generate the lolliplot plots (Figures 3D, 3E, S3A, and S3D);
-- generate _a 'heatmap' showing the eGenes for a single eQTL with concordance with raQTLs (Figure 5E);_ 
--  _generate Figure S4 which shows the transcripts for an eGene with eQTL locations, chromHMM data and DNAse I peaks. !!!!FIND THESE SCRIPTS!!!!!_ \
--  overlap raQTL-eGene pairs and 1000 fibroblast eGenes with RNA tissue distribution data from the Human Protein Atlas; and
--  generate the plots showing the RNA tissue distribution (Figure S3B).
+- generate a 'heatmap' showing the eGenes for a single eQTL with concordance with raQTLs (Figure 5E); 
+- generate Figure S4 which shows the transcripts for an eGene with eQTL locations, chromHMM data and DNAse I peaks;
+- overlap raQTL-eGene pairs and 1000 fibroblast eGenes with RNA tissue distribution data from the Human Protein Atlas; and
+- generate the plots showing the RNA tissue distribution (Figure S3B).
 
 ### 5. GWAS
 Contains all the scripts used for the various analyses involving overlap with GWAS data.
