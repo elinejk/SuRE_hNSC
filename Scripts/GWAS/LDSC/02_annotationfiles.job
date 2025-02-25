@@ -12,9 +12,4 @@
 
 export R_LIBS=$HOME/rpackages:$R_LIBS
 
-
-#Rscript annotfile_prep_continuous.R
-#Rscript annotfile_prep_binary.R
-
 Rscript annotfile_prep_binary_hnsc.R
-#Rscript annotfile_prep_tf_eva.R
