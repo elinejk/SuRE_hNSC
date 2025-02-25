@@ -1,0 +1,49 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --tasks=1
+#SBATCH --time=0:30:00
+#SBATCH --cpus-per-task=32
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=e.koornstra@erasmusmc.nl
+#SBATCH --output=/home/ekoornstra/logs/slurm-%j.out
+
+
+export R_LIBS=$HOME/rpackages:$R_LIBS
+
+echo "running script for ADHD, ASD, BPD, IQ"
+
+# phenotype 1
+fuma='summary_statistics/FUMA_hg19/demontis_adhd_27-loci_FUMA.txt'
+sumstats='summary_statistics/hg19/ADHD_meta_Jan2022_iPSYCH1_iPSYCH2_deCODE_PGC.meta.gz'
+snp_file='summary_statistics/FUMA_hg19/nSNPs/ADHD_snps.txt'
+snpout='surexgwas/freeze7/ADHD_hnsc_sure_in_gwas_snps_11042024.txt'
+summary='surexgwas/freeze7/ADHD_hnsc_sure_in_gwas_summary_11042024.txt'
+
+Rscript 01new_sure_in_gwas_loci.R ${fuma} ${sumstats} ${snp_file} ${snpout} ${summary}
+
+# phenotype 2
+fuma2='summary_statistics/FUMA_hg19/grove_asd_3-loci_FUMA.txt'
+sumstats2='summary_statistics/hg19/iPSYCH-PGC_ASD_Nov2017.gz'
+snp_file2='summary_statistics/FUMA_hg19/nSNPs/ASD_snps.txt'
+snpout2='surexgwas/freeze7/ASD_hnsc_sure_in_gwas_snps_11042024.txt'
+summary2='surexgwas/freeze7/ASD_hnsc_sure_in_gwas_summary_11042024.txt'
+
+Rscript 01new_sure_in_gwas_loci.R ${fuma2} ${sumstats2} ${snp_file2} ${snpout2} ${summary2}
+
+# phenotype 3
+fuma3='summary_statistics/FUMA_hg19/mullins_bpd_51-loci_FUMA.txt'
+sumstats3='summary_statistics/hg19/daner_bip_pgc3_nm_noukbiobank.gz'
+snp_file3='summary_statistics/FUMA_hg19/nSNPs/BPD_snps.txt'
+snpout3='surexgwas/freeze7/BPD_hnsc_sure_in_gwas_snps_11042024.txt'
+summary3='surexgwas/freeze7/BPD_hnsc_sure_in_gwas_summary_11042024.txt'
+
+Rscript 01new_sure_in_gwas_loci.R ${fuma3} ${sumstats3} ${snp_file3} ${snpout3} ${summary3}
+
+# phenotype 4
+fuma4='summary_statistics/FUMA_hg19/savage_iq_214-loci_FUMA.txt'
+sumstats4='summary_statistics/hg19/SavageJansen_2018_intelligence_metaanalysis.txt.gz'
+snp_file4='summary_statistics/FUMA_hg19/nSNPs/IQ_snps.txt'
+snpout4='surexgwas/freeze7/IQ_hnsc_sure_in_gwas_snps_11042024.txt'
+summary4='surexgwas/freeze7/IQ_hnsc_sure_in_gwas_summary_11042024.txt'
+
+Rscript 01new_sure_in_gwas_loci.R ${fuma4} ${sumstats4} ${snp_file4} ${snpout4} ${summary4}
