@@ -19,3 +19,4 @@ Figures 2A, 2B, S2C, S2D
 ## 3. ADDITIONAL ANALYSES BY EVA
 Figures 2C, 2D, S2E 
 Table S3
+**LOLA_JASPAR_twoSets.sh:** this script is ran using the JASPAR enrichment tool from LOLA (see [here])(https://bitbucket.org/CBGR/jaspar_enrichment/src/master/)
