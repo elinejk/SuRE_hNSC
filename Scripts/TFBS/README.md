@@ -11,12 +11,22 @@ The script creates two types of bargraphs (for each there with be a TFBS overlap
 - Plots showing the results for hNSC, HepG2 and K562 (Figures S1E, S1F).
 
 ### 1.2 Comparison between cell types
-Figures S2A, S2B
+
 
 ## 2. TFBS enrichment
 Figures 2A, 2B, S2C, S2D
 
-## 3. ADDITIONAL ANALYSES BY EVA
+## 3. Regulatory properties of TFBS binding raQTLs 
 Figures 2C, 2D, S2E 
+
+
 Table S3
-**LOLA_JASPAR_twoSets.sh:** this script is ran using the JASPAR enrichment tool from LOLA (see [here])(https://bitbucket.org/CBGR/jaspar_enrichment/src/master/)
+**LOLA_JASPAR_twoSets.sh:** this script is ran using the JASPAR enrichment tool from LOLA see [here](https://bitbucket.org/CBGR/jaspar_enrichment/src/master/) for more details. 
+The script takes as input:
+- A file containing raQTLs with 100bp flanking regions.
+- A file containing control SNPs with 100bp flanking regions.
+We selected raQTLs and control SNPs binding one of the five most enriched TFBS: ZBTB33, YY1, GABPA, TP63, and TP53. The script calculates the enrichment of neighboring TFBS in regions flanking raQTLs versus control SNPs for each of these TFBS separately. For each TFBS, the output file "allEnrichments.tsv" contains enrichment results, including odds ratios (OR) for neighboring TFBS.
+
+**main_jaspar.sh:**: this script allows for running the above script in parallel for each of the five TFBS. 
+
+**JASPAR_enrichment_neighboring.R:** This script calculates the mean OR of each TF class, providing an overall measure of whether certain TF classes are more frequently associated with raQTLs than control SNPs. A mean OR > 1 suggests a TF class is more enriched in raQTL regions, while a mean OR < 1 suggests depletion
