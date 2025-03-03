@@ -22,7 +22,7 @@ Figures 2C, 2D
 
 **260225_SuRE_barplots_enrichment.R:** is used to calcultate the relative TFBS enrichment of each cell type over the others (hNSC over HepG2 / hNSC over K562). It takes the enrichment results of each cell type as input, then calculates the relative enrichment using the proportion of raQTLs within each TFBS in each cell type. 
 
-**LOLA_JASPAR_twoSets.sh:** this script is ran using the JASPAR enrichment tool from LOLA see [here](https://bitbucket.org/CBGR/jaspar_enrichment/src/master/) for more details. 
+**LOLA_JASPAR_twoSets.sh:** this script is ran using the JASPAR enrichment tool from LOLA, see [here](https://bitbucket.org/CBGR/jaspar_enrichment/src/master/) for more details. 
 The script takes as input:
 - A file containing raQTLs with 100bp flanking regions.
 - A file containing control SNPs with 100bp flanking regions.
