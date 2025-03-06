@@ -11,16 +11,13 @@ The script creates two types of bargraphs (for each there with be a TFBS overlap
 - Plots showing the results for hNSC, HepG2 and K562 (Figures S1E, S1F).
 
 ### 1.2 Comparison between cell types
-
+**260225_SuRE_barplots_enrichment.R:** is used to calcultate the relative TFBS enrichment of each cell type over the others (hNSC over HepG2 / hNSC over K562). It takes the enrichment results of each cell type as input, then calculates the relative enrichment using the proportion of raQTLs within each TFBS in each cell type. 
 
 ## 2. TFBS enrichment
 Figures 2A, 2B, S2C, S2D
 
 ## 3. Regulatory properties of TFBS binding raQTLs 
 Figures 2C, 2D
-
-
-**260225_SuRE_barplots_enrichment.R:** is used to calcultate the relative TFBS enrichment of each cell type over the others (hNSC over HepG2 / hNSC over K562). It takes the enrichment results of each cell type as input, then calculates the relative enrichment using the proportion of raQTLs within each TFBS in each cell type. 
 
 **LOLA_JASPAR_twoSets.sh:** this script is ran using the JASPAR enrichment tool from LOLA, see [here](https://bitbucket.org/CBGR/jaspar_enrichment/src/master/) for more details. 
 The script takes as input:
