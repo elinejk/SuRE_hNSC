@@ -106,7 +106,7 @@ counts.dt <- lapply(seq_along(sure_files), function(i) {
 
   # load data
   chr_id <- grep(paste0("chr", chr, ".txt.gz"), sure_files[[i]], fixed = TRUE)
-  a <- fread(sure_files[[i]][chr_id], drop = c("strand", "start", "end", "SNPrelpos", "SNPvar", "PAT_MAT", "SNPidx"))
+  a <- fread(sure_files[[i]][chr_id], drop = c("SNPrelpos", "SNPvar", "PAT_MAT", "SNPidx"))
   
   # remove reads without a SNP in them
   sander_log(": Rows before removing non-SNPs: ", nrow(a))
