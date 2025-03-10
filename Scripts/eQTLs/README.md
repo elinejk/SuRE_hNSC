@@ -4,14 +4,14 @@ Scripts used for all analyses involving eQTLs.
 ## 1. Overlap with eQTLs
 **eqtl_overlap_alternative-pipeline_31012024.R** and **eqtl_overlap_alternative-pipeline_non-brain_31012024.R:** for each raQTL it determines if it was tested by GTEx (.all.pairs.txt.gz files) and if it was an eQTL in a tissue. Next it determines the concordance and prints summary information. These scripts generated the data that was used, among other things, to create Figure 3B and 3C in PRISM.
 
-**eqtl_functional_annotations_02072024.r:** takes the results from the raQTL output file generated with the script above and annotates it with genomic regions (for example DHS) and gencode information.
+**eqtl_functional_annotations_02072024.R:** takes the results from the raQTL output file generated with the script above and annotates it with genomic regions (for example DHS) and gencode information.
 
 ## 2. Generation of plots
 ### 2.1 Overview of all eQTL overlaps
 **eqtl_overlap_summary-plot_31012024.R:** takes a file summarizing the overlap between raQTLs and eQTLs (determined in step 1) and uses this to create a heatmap (Figure 3A).
 
-### 2.2 Lolliplot plot for a single gene
-**eqtl_lolliplot_19062024.r:** for a specific gene and a specific eQTL tissue, it creates a lollipop plot. Here it shows a specific transcript and the position of the eQTLs (colored based on SuRE concordance) relative to the transcript position.
+### 2.2 Lollipop plot for a single gene
+**eqtl_lolliplot_19062024.R:** for a specific gene and a specific eQTL tissue, it creates a lollipop plot. Here it shows a specific transcript and the position of the eQTLs (colored based on SuRE concordance) relative to the transcript position.
 As seen in Fiogures 3D, 3E, S3A, and S3D
 
 ### 2.3 Concordance heatmap for a single raQTL
