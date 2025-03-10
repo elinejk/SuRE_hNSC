@@ -24,11 +24,10 @@ This script runs the following script:
 
 ## 2. SuRE SNPs and raQTLs in GWAS loci
 ### 2.1 Determine the number of SuRE SNPs and raQTLs within a locus
-These scripts were used to generate the information that was used to create Figures 4C, 4D, 4E and S3C in PRISM. \
-It requires summary statistics and FUMA output files (files containing the loci and candidate SNPs).
+These scripts require GWAS summary statistics and FUMA output files (files containing the loci and candidate SNPs).
 
 **run_01_sure_in_gwas_loci.job:** run the following script:
-- **01new_sure_in_gwas_loci.R:** determines for each locus in the FUMA file: (1) which SuRE SNPs are within the boundaries, if they were part of the sumstats, if they are a candidate SNP, and if they are raQTLs; (2) how many sumstats SNPs are within the boundaries; (3) creates a summary file for each locus with the number of sumstat SNPs, number of candidate SNPs, and how many of those were tested by SuRE and were raQTLs.
+- **01new_sure_in_gwas_loci.R:** determines for each locus in the FUMA file: (1) which SuRE SNPs are within the boundaries, if they were part of the sumstats, if they are a candidate SNP, and if they are raQTLs; (2) how many sumstats SNPs are within the boundaries; (3) creates a summary file for each locus with the number of sumstat SNPs, number of candidate SNPs, and how many of those were tested by SuRE and were raQTLs. The information from 'part 3' was used as input to generate Figures 4C, 4D, 4E and S3C in PRISM.
 
 **02_raqtl_in_locus_listfile.R:** takes the output from part 1 of script 01, and saves only those that are raQTLs. The information in this output file was later used to determine which locus to highlight.
 
