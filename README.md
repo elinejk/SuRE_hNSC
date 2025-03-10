@@ -21,9 +21,9 @@ Contains the scripts used to
 - annotate the SuRE data with TFBS from SNP2TFBS;
 - generate plots showing the overlap and concordance with the first TFBS (Figures 1F, 1G, S1E, and S1F);
 - determine the enrichment of TFBS for raQTLs vs controls (Figures 2A, 2B, S2C and S2D) and between cell types (Figures S2A, S2B);
-- look into nucleotide conservation (Figure 2D, S2E);
 - investigate the expression of SNPs within TFBS (Figure 2C);
-- determine neighboring TFs of enriched TFBS.
+- look into nucleotide conservation (Figure 2D, S2E);
+- determine neighboring TFs of enriched TFBS (Table S3)
 
 ### 4. eQTLs
 Contains the scripts used to 
