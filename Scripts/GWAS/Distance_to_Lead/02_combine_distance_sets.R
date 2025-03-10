@@ -25,9 +25,5 @@ for (pheno in phenos){
 	distinct(SNP_ID, .keep_all = T)
 	
 	fwrite(b, paste0(path, set, "/allphenos-shortestdist_", set, "_gwassign_distance-snp-to-lead_16042024.txt"), quote = F, row.names=F, sep='\t')
- 
-        # only keep the ones significant in the GWAS
-        #c <- a[a$GWAS_P <= 5e-8, ]
-  
-        #fwrite(c, paste0(path, set, "/allphenos-gwassign_", set, "_distance-snp-to-lead_16042024.txt"), quote = F, row.names=F, sep='\t')
+
 }
