@@ -1,4 +1,4 @@
-# SuRE_hNSC
+# SuRE in human neural stem cells (hNSCs)
 Github containing the files related to the manuscript "Identifying the regulatory potential of 7 million SNPs in human neural stem cells"
 
 ## Scripts
