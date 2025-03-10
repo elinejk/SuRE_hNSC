@@ -91,32 +91,33 @@ for (row in 1:nrow(infofile)) {
   fwrite(sign, paste0(out_path, pheno, "_" , setname, "_gwassign_distance-snp-to-lead_16042024.txt"), quote=F, row.names=F, sep="\t")  
   
   ## STEP 3.5: now the distance from the lead snp to the snps
-  print("determining the distance from the lead snp to the gwas-tested snp with the lowest sure pvalue < 100kb")
+  ## THIS PART OF THE SCRIPT WAS NOT USED FOR THE MANUSCRIPT
+  #print("determining the distance from the lead snp to the gwas-tested snp with the lowest sure pvalue < 100kb")
   # prepare the lead snp file
-  leadsnp$start_window <- leadsnp$pos - 100000
-  leadsnp$end_window <- leadsnp$pos + 100000
-  leadsnp$chr <- as.character(leadsnp$chr)
+  #leadsnp$start_window <- leadsnp$pos - 100000
+  #leadsnp$end_window <- leadsnp$pos + 100000
+  #leadsnp$chr <- as.character(leadsnp$chr)
   
   # subset the file file to only retain snps tested by the gwas and prepare file for overlap
-  subs <- set[set$ingwas == 1, ]
-  subs <- set[set$GWAS_P <= 5e-8, ]
-  subs$end <- subs$pos.hg19
+  #subs <- set[set$ingwas == 1, ]
+  #subs <- set[set$GWAS_P <= 5e-8, ]
+  #subs$end <- subs$pos.hg19
   
   # determine if the snp falls within the 100kb window
-  setkey(leadsnp, chr, start_window, end_window)
-  wind <- foverlaps(subs, leadsnp, by.x = c("chrom", "pos.hg19", "end"), type = "any", nomatch=NULL)
+  #setkey(leadsnp, chr, start_window, end_window)
+  #wind <- foverlaps(subs, leadsnp, by.x = c("chrom", "pos.hg19", "end"), type = "any", nomatch=NULL)
   
   # only retain the match with the lowest sure pvalue
-  wind <- wind %>%
-	 arrange(rsID, hNPC.wilcoxon.pvalue) %>%
-	 distinct(rsID, .keep_all = T)
+  #wind <- wind %>%
+  #	 arrange(rsID, hNPC.wilcoxon.pvalue) %>%
+  #	 distinct(rsID, .keep_all = T)
    
    # calculate the distance
-   wind$distance <- abs(wind$pos.hg19 - wind$pos)
+   #wind$distance <- abs(wind$pos.hg19 - wind$pos)
    
    # save the file
-   print(paste0("lead snps with a GWAS-tested SuRE SNP within 100kb: ", nrow(wind)))
-   fwrite(wind, paste0(out_path, pheno,  "_" , setname, "_distance-lead-to-snp_16042024.txt"), quote=F, row.names=F, sep="\t")
+   #print(paste0("lead snps with a GWAS-tested SuRE SNP within 100kb: ", nrow(wind)))
+   #fwrite(wind, paste0(out_path, pheno,  "_" , setname, "_distance-lead-to-snp_16042024.txt"), quote=F, row.names=F, sep="\t")
 }
 
 
