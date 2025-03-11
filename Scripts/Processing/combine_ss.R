@@ -7,7 +7,7 @@ setDTthreads(2)
 #### INIT
 
 # summary statistics
-d_res <- "/home/ekoornstra/sure_data/freeze6/permutation_test"
+d_res <- "/home/ekoornstra/sure_data/freeze7"
 chr <- c(1:22, "X")
 f_res <- paste0("out_chr", chr, ".txt.gz")
 p_res <- file.path(d_res, f_res)
