@@ -2,7 +2,7 @@
 Scripts used for all analyses involving eQTLs.
 
 ## 1. Overlap with eQTLs
-**eqtl_overlap.R** and **eqtl_overlap_non-brain.R:** for each emVar it determines if it was tested by GTEx (.all.pairs.txt.gz files) and if it was an eQTL in a tissue. Next it determines the concordance and prints summary information. These scripts generated the data that was used, among other things, to create Figure 3B and 3C in PRISM.
+**eqtl_overlap_brain.R** and **eqtl_overlap_non-brain.R:** for each emVar it determines if it was tested by GTEx (.all.pairs.txt.gz files) and if it was an eQTL in a tissue. Next it determines the concordance and prints summary information. These scripts generated the data that was used, among other things, to create Figure 3B and 3C in PRISM.
 
 **eqtl_functional_annotations.R:** takes the results from the emVar output file generated with the script above and annotates it with genomic regions (for example DHS) and gencode information.
 
