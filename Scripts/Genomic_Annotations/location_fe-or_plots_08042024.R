@@ -5,7 +5,7 @@ library(ggplot2)
 # read file and set parameters
 path <- "V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/raQTLs/freeze7/figures/"
 outpath <- "V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/raQTLs/freeze7/figures/"
-df <- fread(paste0(path, "DSSCR24_hNSC_locations_FE-OR_07102024.txt"))
+df <- fread(paste0(path, "raqtl_FE-OR_for-plot_10042024.txt"))
 dag <- "07102024"
 
 tissue <- "E009"
@@ -21,19 +21,10 @@ if (cell == "hNSC") {
 
 global_size = 12
 
-# reduce df
-#rw <- c(paste0(tissue, " Promoter (ChromHMM imputed)"), paste0(tissue, " Active Enhancer (ChromHMM imputed)"),
-#          paste0(cell, " DHS broadpeak (Stamatoyannopoulos 2018)"), paste0(cell, " DHS narrowpeak (Stamatoyannopoulos 2020)"))
-
-#a <- df %>% 
-#  filter(Source %in% rw) %>%
-#  mutate(Annotation = ifelse(Source == paste0(tissue, " Promoter (ChromHMM imputed)"), paste0(tissue, " Promoter"),
-#                   ifelse(Source == paste0(tissue, " Active Enhancer (ChromHMM imputed)"), paste0(tissue, " Active Enhancer"),
-#                    ifelse(Source ==  paste0(cell, " DHS broadpeak (Stamatoyannopoulos 2018)"), paste0(cell, " broad peak DHS"),
-#                    ifelse(Source == paste0(cell, " DHS narrowpeak (Stamatoyannopoulos 2020)"), paste0(cell, " narrow peak DHS"), Source)))))
-
+# subset on cell type
 a <- df[df$Cell == cell, ]
 
+# set comparison levels
 a$Comparison <- factor(a$Comparison, levels = c("raQTLs vs controls", "raQTLs vs all SuRE SNPs"))
 
 # add pvalue asterisks
@@ -42,7 +33,6 @@ a <- a %>%
    `Fisher p-value` > 0.05 ~ "", `Fisher p-value` > 0.01 ~ "*",
    `Fisher p-value` > 0.001 ~"**", `Fisher p-value` > 0.0001 ~"***", !is.na(`Fisher p-value`) ~ "****",
    TRUE ~ NA_character_)) 
-
 
 # Fold-enrichment plots
 fe <- ggplot(a, aes(x=Annotation, y=`Fold enrichment`)) +
@@ -57,8 +47,6 @@ fe <- ggplot(a, aes(x=Annotation, y=`Fold enrichment`)) +
   theme(text = element_text(size=global_size),
         panel.grid.minor = element_blank(),
         panel.grid.major = element_blank())
-
-fe
 
 ggsave(paste0(outpath, cell, "_locations_FE_", dag, ".pdf"), fe, units="mm", height=200, width=300)
 
@@ -75,7 +63,6 @@ fo <- ggplot(a, aes(x=Annotation, y=`Odds ratio`)) +
         panel.grid.minor = element_blank(),
         panel.grid.major = element_blank())
 
-fo
-
 ggsave(paste0(outpath, cell, "_locations_OR_", dag, ".pdf"), fo, units="mm", height=200, width=170)
+
 
