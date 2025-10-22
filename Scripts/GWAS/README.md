@@ -18,9 +18,9 @@ This script runs the following script:
 **04-binary_partitioned_heritability:** runs LDSC partitioned heritability using the LD and Annotation files created with 02 and 03; the weight file from 01; and the summary statistics from 00. The frequency files and plink bed files used in this script were _downloaded from LDSC_ (downloaded files: 1000G_Phase3_frq and 1000G_EUR_Phase3_plink).
 
 ### 1.2 Generating the plots
-**ldsc_barplot_hnsc-emvars.R:** creates a bargraph with significance showing the heritability for a subset of annotations for one phenotype. Takes directly the ouput from script 04.
+**ldsc_phenotype_barplot.R:** creates a bargraph with significance showing the heritability for a subset of annotations for one phenotype. Takes directly the ouput from script 04.
 
-**ldsc_hnsc_summary_plots.R:** creates a bargraph with significance for the hNSC emVar and hNSC control category for all phenotypes. You need a file containing the hNSC emVar LDSC results for all phenotypes.
+**ldsc_emvar_control_summary_plot.R:** creates a bargraph with significance for the hNSC emVar and hNSC control category for all phenotypes. You need a file containing the hNSC emVar LDSC results for all phenotypes.
 
 ## 2. SuRE SNPs and emVars in GWAS loci
 ### 2.1 Determine the number of SuRE SNPs and emVars within a locus
