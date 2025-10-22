@@ -1,5 +1,5 @@
 # Processing
-All files related to the processing of the SuRE data, calling of the raQTLs, and generation of fragment expression plots
+All files related to the processing of the SuRE data, calling of the expression modulating variants (emVars), and generation of fragment expression plots
 
 ## 1. Files to process the raw SuRE data
 ### 1.1 Process the autosomes and chrX separately
@@ -13,8 +13,8 @@ Both scripts run the script below:
 - **combine_ss.R**: script to combine all the processed chromosome files (generated with the scripts above) into one big processed file.
 
 ## 2. Files to determine raQTLs
-**raqtl_identification_31032022.R**: determines raQTLs using the output file generated with **combine_ss.sh** and **combine_ss.R** \
-It can easily be modified to identify raQTLs in HepG2 and K562 by changing the cell type specific column names; and can also be used to determine control SNPs by selecting the SNPs _not_ meeting the p-value cut off.
+**emvar_identification.R**: determines emVars using the output file generated with **combine_ss.sh** and **combine_ss.R** \
+It can easily be modified to identify emVars in HepG2 and K562 by changing the cell type specific column names; and can also be used to determine control SNPs by selecting the SNPs _not_ meeting the p-value cut off.
 
 ## 3. Files to generate fragment expression plots
 **sure_expression_fragments.R:** requires files that still contain information on the fragment level. These files (reads_sure_CHR.txt.gz) are generated while running the processing scripts. You need to provide the chromosome and the position of the SNP you are interested in. It then creates plots with the fragment expression with the positions of the fragments, and the fragment expression split by allele, as seen in Figure 1B and Figure 1C
