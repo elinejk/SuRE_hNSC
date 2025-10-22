@@ -12,16 +12,16 @@
 ## before running this script you should have already calculated ld scores
 
 # FILES
-sumstat="astle2016_rbc_N172952_narrow_form.sumstats.gz"
-output="rbc-full_astle2016"
-sumstat2="astle2016_wbc_N172435_narrow_form.sumstats.gz"
-output2="wbc-full_astle2016"
+sumstat="wray2018_mdd_daner_pgc_meta_w2_no23andMe_rmUKBB.sumstats.gz"
+output="mdd_wray2018"
+sumstat2="trubetskoy2022_scz_pgc3_wave3_primary.sumstats.gz"
+output2="scz_trubetskoy2022"
 
 # output file format to keep it consistent: phenotype-authoryear_1kg-approach_nosure/binary/cont_heritability_freeze4
 
 # no hapmap3 filter on sumstats, ld file filtered on sure snps, and weights from all 1kg phase3 snps
-refld_binary="/gpfs/home6/ekoornstra/ldsc/freeze7/annotation_ld/1000G_Phase3_baselineLD_v2.2_nohm3filter_hnsc/baselineLD.v2.2.sure.hnsc."
-outpath="/gpfs/home6/ekoornstra/ldsc/freeze7/heritability_results/"
+refld_binary="/gpfs/home6/ekoornstra/ldsc/freeze7/annotation_ld/1000G_Phase3_baselineLD_v2.2_nohm3filter_hnsc_wcont/baselineLD.v2.2.sure.hnsc."
+outpath="/gpfs/home6/ekoornstra/ldsc/freeze7/heritability_results/test/"
 
 path="/gpfs/home6/ekoornstra/ldsc/freeze7/"
 weights="weights/weights_1kg_phase3_allsnps/weights."
