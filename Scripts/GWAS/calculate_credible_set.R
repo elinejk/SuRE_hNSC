@@ -1,6 +1,6 @@
 library(data.table)
 
-# Set paths
+## PATHS AND SETTINGS ##
 path <- "/gpfs/home6/ekoornstra/surexgwas/freeze7/finemapping/SCZ/files/results/"
 output_path <- "/gpfs/home6/ekoornstra/surexgwas/freeze7/finemapping/SCZ/files/"
 credible_percentage <- 95
@@ -15,13 +15,12 @@ files <- list.files(path = path, pattern = pattern, full.names = TRUE)
 credible_set <- data.table()
 threshold <- credible_percentage / 100
 
-
+## DETERMINE CREDIBLE SET ##
 # Loop through each file
 for (file in files) {
-  # Read the file
   dt <- fread(file)
   
-  # Confirm that it countains the column
+  # Confirm that it countains the posterior probability column
   if (!"Posterior_Prob" %in% colnames(dt)) {
     warning(paste("Missing 'Posterior_Prob' column in file:", file))
     next
@@ -45,7 +44,6 @@ for (file in files) {
 }
 
 head(credible_set)
-
 
 # Annotate with emVars
 emvars <- fread("/gpfs/home6/ekoornstra/raqtls/freeze7/annotations/hnsc_no_downsampling_snp-permutation_freeze7_wilc-raqtls_ANNOTATED_TFBS_120325.txt")
