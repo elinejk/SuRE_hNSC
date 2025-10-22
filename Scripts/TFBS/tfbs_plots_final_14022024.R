@@ -14,17 +14,17 @@ stat.test <- fread(paste0(path, "tfbs_statistics_for-plot_10042024.txt"))
 # STEP 2: prepare files the concordance rounds
 # hNSC concordance
 df.hnsc <- df[df$Cell == "hNSC" & df$Source == "TFBS concordance", ]
-df.hnsc$Group = factor(df.hnsc$Group, levels=c("hNSC raQTLs", "hNSC controls", "All SuRE SNPs"))
+df.hnsc$Group = factor(df.hnsc$Group, levels=c("hNSC emVars", "hNSC controls", "All SuRE SNPs"))
 stat.test.hnsc <- stat.test[stat.test$Cell == "hNSC" & stat.test$Source == "TFBS concordance", ]
 
 # HepG2 concordance
 df.hepg2 <- df[df$Cell == "HepG2" & df$Source == "TFBS concordance", ]
-df.hepg2$Group = factor(df.hepg2$Group, levels=c("HepG2 raQTLs", "HepG2 controls", "All SuRE SNPs"))
+df.hepg2$Group = factor(df.hepg2$Group, levels=c("HepG2 emVars", "HepG2 controls", "All SuRE SNPs"))
 stat.test.hepg2 <- stat.test[stat.test$Cell == "HepG2" & stat.test$Source == "TFBS concordance", ]
 
 # K562 concordance
 df.k562 <- df[df$Cell == "K562" & df$Source == "TFBS concordance", ]
-df.k562$Group = factor(df.k562$Group, levels=c("K562 raQTLs", "K562 controls", "All SuRE SNPs"))
+df.k562$Group = factor(df.k562$Group, levels=c("K562 emVars", "K562 controls", "All SuRE SNPs"))
 stat.test.k562 <- stat.test[stat.test$Cell == "K562" & stat.test$Source == "TFBS concordance", ]
 
 
@@ -32,17 +32,17 @@ stat.test.k562 <- stat.test[stat.test$Cell == "K562" & stat.test$Source == "TFBS
 # STEP 3: prepare files for the overlap rounds
 # hNSC overlap
 df.hnsco <- df[df$Cell == "hNSC" & df$Source == "TFBS overlap", ]
-df.hnsco$Group = factor(df.hnsco$Group, levels=c("hNSC raQTLs", "hNSC controls", "All SuRE SNPs"))
+df.hnsco$Group = factor(df.hnsco$Group, levels=c("hNSC emVars", "hNSC controls", "All SuRE SNPs"))
 stat.test.hnsco <- stat.test[stat.test$Cell == "hNSC" & stat.test$Source == "TFBS overlap", ]
 
 # HepG2 overlap
 df.hepg2o <- df[df$Cell == "HepG2" & df$Source == "TFBS overlap", ]
-df.hepg2o$Group = factor(df.hepg2o$Group, levels=c("HepG2 raQTLs", "HepG2 controls", "All SuRE SNPs"))
+df.hepg2o$Group = factor(df.hepg2o$Group, levels=c("HepG2 emVars", "HepG2 controls", "All SuRE SNPs"))
 stat.test.hepg2o <- stat.test[stat.test$Cell == "HepG2" & stat.test$Source == "TFBS overlap", ]
 
 # K562 overlap
 df.k562o <- df[df$Cell == "K562" & df$Source == "TFBS overlap", ]
-df.k562o$Group = factor(df.k562o$Group, levels=c("K562 raQTLs", "K562 controls", "All SuRE SNPs"))
+df.k562o$Group = factor(df.k562o$Group, levels=c("K562 emVars", "K562 controls", "All SuRE SNPs"))
 stat.test.k562o <- stat.test[stat.test$Cell == "K562" & stat.test$Source == "TFBS overlap", ]
 
 
@@ -189,6 +189,7 @@ conc <- ggplot(df.conc, aes(x=Group, y=Percentage)) +
 # save plots for the comparison round
 ggsave(paste0(path, "TFBS_overlap_comparison_Routput_14052024.pdf"), tfbs, units="mm", height=100, width=200)
 ggsave(paste0(path, "TFBS_concordance_comparison_Routput_14052024.pdf"), conc, units="mm", height=100, width=200)
+
 
 
 
