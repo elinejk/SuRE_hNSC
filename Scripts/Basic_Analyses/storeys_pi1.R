@@ -53,7 +53,7 @@ for (i in seq_along(cell_type)) {
 print(results)
 
 
-# plot the results
+# plot the results if wanted
 results_long <- melt(results, varnames = c("Signif in", "Evaluated by"), value.name = "pi1")
 
 ggplot(results_long, aes(x = `Signif in`, y = `Evaluated by`, fill = pi1)) +
@@ -61,7 +61,8 @@ ggplot(results_long, aes(x = `Signif in`, y = `Evaluated by`, fill = pi1)) +
   geom_text(aes(label = sprintf("%.2f", pi1)), na.rm = TRUE) +
   scale_fill_gradient(low = "white", high = "red", na.value = "grey80") +
   theme_minimal() +
-  labs(title = "Storey's ????? Heatmap",
+  labs(title = "Storey's pi1 Heatmap",
        x = "Significant in",
        y = "Evaluated in") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
