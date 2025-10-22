@@ -19,7 +19,7 @@ snp_file='summary_statistics/FUMA_hg19/nSNPs/ADHD_snps.txt'
 snpout='surexgwas/freeze7/ADHD_hnsc_sure_in_gwas_snps_11042024.txt'
 summary='surexgwas/freeze7/ADHD_hnsc_sure_in_gwas_summary_11042024.txt'
 
-Rscript 01new_sure_in_gwas_loci.R ${fuma} ${sumstats} ${snp_file} ${snpout} ${summary}
+Rscript 01_sure_in_gwas_loci.R ${fuma} ${sumstats} ${snp_file} ${snpout} ${summary}
 
 # phenotype 2
 fuma2='summary_statistics/FUMA_hg19/grove_asd_3-loci_FUMA.txt'
@@ -28,7 +28,7 @@ snp_file2='summary_statistics/FUMA_hg19/nSNPs/ASD_snps.txt'
 snpout2='surexgwas/freeze7/ASD_hnsc_sure_in_gwas_snps_11042024.txt'
 summary2='surexgwas/freeze7/ASD_hnsc_sure_in_gwas_summary_11042024.txt'
 
-Rscript 01new_sure_in_gwas_loci.R ${fuma2} ${sumstats2} ${snp_file2} ${snpout2} ${summary2}
+Rscript 01_sure_in_gwas_loci.R ${fuma2} ${sumstats2} ${snp_file2} ${snpout2} ${summary2}
 
 # phenotype 3
 fuma3='summary_statistics/FUMA_hg19/mullins_bpd_51-loci_FUMA.txt'
@@ -37,7 +37,7 @@ snp_file3='summary_statistics/FUMA_hg19/nSNPs/BPD_snps.txt'
 snpout3='surexgwas/freeze7/BPD_hnsc_sure_in_gwas_snps_11042024.txt'
 summary3='surexgwas/freeze7/BPD_hnsc_sure_in_gwas_summary_11042024.txt'
 
-Rscript 01new_sure_in_gwas_loci.R ${fuma3} ${sumstats3} ${snp_file3} ${snpout3} ${summary3}
+Rscript 01_sure_in_gwas_loci.R ${fuma3} ${sumstats3} ${snp_file3} ${snpout3} ${summary3}
 
 # phenotype 4
 fuma4='summary_statistics/FUMA_hg19/savage_iq_214-loci_FUMA.txt'
@@ -46,4 +46,4 @@ snp_file4='summary_statistics/FUMA_hg19/nSNPs/IQ_snps.txt'
 snpout4='surexgwas/freeze7/IQ_hnsc_sure_in_gwas_snps_11042024.txt'
 summary4='surexgwas/freeze7/IQ_hnsc_sure_in_gwas_summary_11042024.txt'
 
-Rscript 01new_sure_in_gwas_loci.R ${fuma4} ${sumstats4} ${snp_file4} ${snpout4} ${summary4}
+Rscript 01_sure_in_gwas_loci.R ${fuma4} ${sumstats4} ${snp_file4} ${snpout4} ${summary4}
