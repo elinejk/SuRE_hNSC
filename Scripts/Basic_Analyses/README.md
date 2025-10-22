@@ -6,7 +6,7 @@
 **qqplot_pvalues.R:** creates a qqplot for measured (hNPC.wilcoxon.pvalue) and expected (hNPC.wilcoxon.pvalue.random) p-values, using 100,000 randomly selected SuRE SNPs (Figure S1A).
 
 ## 2. Minor allele frequency
-**...:** bash script used to determine the MAF for each SuRE SNP
+**MAF.sh:** bash script used to determine the MAF for each SuRE SNP
 
 **MAF_analyses.R:** calculates the minimum, maximum, mean, and median MAF for emVars, control SNPs and the full SuRE dataset
 
