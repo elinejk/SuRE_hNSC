@@ -5,7 +5,7 @@ library(data.table)
 
 
 ###COLOR CODES
-##raQTLs: #E69F00
+##emVars: #E69F00
 ##Controls: #56B4E9
 ##All: #009E73
 
@@ -16,7 +16,7 @@ library(data.table)
 # Define cell types and paths
 cell_types <- c("K562", "HepG2", "hNPC") 
 file_paths <- lapply(cell_types, function(cell_type){
-  paste0("V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/transcription_factors/TF_enrichment/",cell_type,"_results/", cell_type, "_results_firstTFBS_EK100625.txt") # EK changed filename
+  paste0("V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/transcription_factors/TF_enrichment/",cell_type,"_results/", cell_type, "_results_firstTFBS_EK100625.txt") 
 }
 ) %>% unlist() 
 
@@ -34,9 +34,9 @@ df2_enrichment <- lapply(df_enrichment, function(df){
   df %>% 
     mutate(
       enrichment_status = factor(
-      ifelse(enriched == TRUE & -log10(p_fdr) >= 1.30103, "Enriched in raQTLs",
+      ifelse(enriched == TRUE & -log10(p_fdr) >= 1.30103, "Enriched in emVars",
              ifelse(enriched == FALSE & -log10(p_fdr) >= 1.30103, "Enriched in control SNPs", "Not enriched")),
-      levels = c("Enriched in raQTLs", "Enriched in control SNPs", "Not enriched")))
+      levels = c("Enriched in emVars", "Enriched in control SNPs", "Not enriched")))
 })
 
 
@@ -89,7 +89,7 @@ generate_barplot <- function(df_plot, cell1, cell2) {
   eplot <- ggplot(df_plot, aes(x = reorder(TFBS, log2_bar), y = log2_bar)) +
     geom_bar(stat = "identity", fill = df_plot$color_bar, alpha = 1) +
     scale_color_identity() +
-    labs(x = "", y = paste0("Enrichment of motifs (control SNPs)\nlog2(", cell1, "/", cell2, ")")) +
+    labs(x = "", y = paste0("Enrichment of motifs (control SNPs)\nlog2(", cell1, "/", cell2, ")")) + # change control to set of interest
     theme_bw() +
     theme(axis.text.x = element_text(angle = 90), axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 }
@@ -113,6 +113,7 @@ plot_list <- lapply(comparisons, function(pair) {
   generate_barplot(enrichment_df, cell1, cell2)
   ggsave(paste0("V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/transcription_factors/paper_plots/barplot_rel_enrichment_celltypes/EK20250610_barplot_firstTFBS_control_", cell1, "_vs_", cell2, ".pdf"), width=5, height=4)
 })
+
 
 
 
