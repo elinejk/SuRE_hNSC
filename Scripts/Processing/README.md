@@ -14,7 +14,7 @@ Both scripts run the script below:
 
 ## 2. Files to determine raQTLs
 **emvar_identification.R**: determines emVars using the output file generated with **combine_ss.sh** and **combine_ss.R** \
-It can easily be modified to identify emVars in HepG2 and K562 by changing the cell type specific column names; and can also be used to determine control SNPs by selecting the SNPs _not_ meeting the p-value cut off.
+Also dentifies emVars in HepG2 and K562. It can also be used to determine control SNPs by selecting the SNPs _not_ meeting the p-value cut off.
 
 ## 3. Files to generate fragment expression plots
 **sure_expression_fragments.R:** requires files that still contain information on the fragment level. These files (reads_sure_CHR.txt.gz) are generated while running the processing scripts. You need to provide the chromosome and the position of the SNP you are interested in. It then creates plots with the fragment expression with the positions of the fragments, and the fragment expression split by allele, as seen in Figure 1B and Figure 1C
