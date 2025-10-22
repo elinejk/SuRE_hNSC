@@ -5,7 +5,7 @@ library(data.table)
 
 
 ###COLOR CODES
-##raQTLs: #E69F00
+##emVars: #E69F00
 ##Controls: #56B4E9
 ##All: #009E73
 
@@ -33,9 +33,9 @@ names(df_enrichment) <- cell_types
 df2_enrichment <- lapply(df_enrichment, function(df){
                   df %>% 
                   mutate(enrichment_status = factor(
-                    ifelse(enriched == TRUE & -log10(p_fdr) >= 1.30103, "Enriched in raQTLs",
+                    ifelse(enriched == TRUE & -log10(p_fdr) >= 1.30103, "Enriched in emVars",
                       ifelse(enriched == FALSE & -log10(p_fdr) >= 1.30103, "Enriched in control SNPs", "Not enriched")),
-                  levels = c("Enriched in raQTLs", "Enriched in control SNPs", "Not enriched")
+                  levels = c("Enriched in emVars", "Enriched in control SNPs", "Not enriched")
     ))
 })
                   
@@ -57,8 +57,8 @@ df <- df2_enrichment[[volcano_celltype]]
 ggplot(data = df , aes(x = log2(MPRA_hits_prop / MPRA_nonhits_prop), y = -log10(p_fdr), color = enrichment_status)) +
   geom_point(size = 3) +
   scale_color_manual(
-    values = c("Enriched in raQTLs" = "#E69F00", "Enriched in control SNPs" = "#56B4E9", "Not enriched" = "grey"),
-    labels = c("Enriched in raQTLs", "Enriched in control SNPs", "Not enriched"),
+    values = c("Enriched in emVars" = "#E69F00", "Enriched in control SNPs" = "#56B4E9", "Not enriched" = "grey"),
+    labels = c("Enriched in emVars", "Enriched in control SNPs", "Not enriched"),
     name = "Enrichment Status"
   ) +
   geom_label_repel(
@@ -72,7 +72,7 @@ ggplot(data = df , aes(x = log2(MPRA_hits_prop / MPRA_nonhits_prop), y = -log10(
     segment.size = 0.5,
     segment.alpha = 0.5
   ) +
-  xlab("log2(raQTL proportion/control proportion)") +
+  xlab("log2(emVar proportion/control proportion)") +
   ylab("-log10(FDR-corrected enrichment P-value)") +
   ggtitle(paste0(volcano_celltype, " transcription factor binding site enrichment")) +
   theme_bw() +
@@ -81,12 +81,16 @@ ggplot(data = df , aes(x = log2(MPRA_hits_prop / MPRA_nonhits_prop), y = -log10(
     axis.text = element_text(size = 18),
     legend.text=element_text(size=18),
     legend.title=element_text(size=18), 
+    legend.position="right",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
     plot.title = element_text(size=22)
      
   ) +
   scale_y_continuous(breaks = seq(0, 300, 100), labels = seq(0, 300, 100), limits = c(0, 300))
   
-  ggsave(paste0("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/paper_plots/060325_volcano_enrichment_", volcano_celltype, ".pdf"), device="pdf", height=15, width=15)
+  ggsave(paste0("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/220925_volcano_enrichment_", volcano_celltype, ".pdf"), 
+         device="pdf", height=11, width=12)
   }
     )
     
@@ -101,84 +105,30 @@ df <- df[!(df$TFBS %in% df_remove$TFBS),] #Remove TFBS that only bind a few SNPs
 
 
 ggplot(df, aes(x=log2(MPRA_hits_prop / MPRA_nonhits_prop), y=percentage_concordant_raqtl, color=enrichment_status)) + geom_point(mapping=aes(size=MPRA_hits)) +scale_color_manual(
-    values = c("Enriched in raQTLs" = "#E69F00", "Enriched in control SNPs" = "#56B4E9", "Not enriched" = "grey"),
-    labels = c("Enriched in raQTLs", "Enriched in control SNPs", "Not enriched"),
+    values = c("Enriched in emVars" = "#E69F00", "Enriched in control SNPs" = "#56B4E9", "Not enriched" = "grey"),
+    labels = c("Enriched in emVars", "Enriched in control SNPs", "Not enriched"),
     name = "Enrichment Status"
-  ) + scale_size_continuous(name="number of raQTLs") +
-    geom_text_repel(aes(label=ifelse(enrichment_status=="Enriched in raQTLs" & percentage_concordant_raqtl >= 90, TFBS, "")), colour="black", size=2.82, fontface=1) + labs(x="log2(raQTL proportion/control proportion)", y="TFBS concordance (%)", title=paste0("Concordance between SuRE signal for ",concordance_celltype, " raQTLs and TFBS binding prediction")) + theme_bw() +
+  ) + 
+  scale_size_continuous(name="Number of emVars") +
+  geom_text_repel(aes(label=ifelse(enrichment_status=="Enriched in emVars" & percentage_concordant_raqtl >= 90, TFBS, "")), 
+                  colour="black", size=2.82, fontface=1) + 
+  labs(x="log2(emVar proportion/control proportion)", y="TFBS concordance (%)", 
+       title=paste0("Concordance between SuRE signal for ",concordance_celltype, " emVars and TFBS binding prediction")) + 
+  theme_bw() +
   theme(
-    text=element_text(size=8)
+    axis.title = element_text(size = 20), 
+    axis.text = element_text(size = 18),
+    legend.text=element_text(size=18),
+    legend.title=element_text(size=18), 
+    legend.position="right",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
      )    
-  ggsave(paste0("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/paper_plots/060325_volcano_concordance_", concordance_celltype, ".pdf"), device="pdf", height=15, width=15)
+  ggsave(paste0("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/220925_volcano_concordance_", concordance_celltype, ".pdf"), 
+         device="pdf", height=11, width=12)
   }
     )
   
-
-#Barplot 
-
-#Define color codes for each cell type (see above) 
-cell_colors <- c("hNPC" = "#E69F00", "HepG2" = "#0072B2", "K562" = "#D55E00")
-
-#Function to calculate enrichment of each cell type over the others (BARPLOT) 
-calculate_relative_enrichment <- function(df_list, cell1, cell2) {
-  df1 <- df_list[[cell1]]
-  df2 <- df_list[[cell2]]
-  
-  #Merge datasets by TFBS
-  df_merged <- merge(df1, df2, by = "TFBS", suffixes = c(".x", ".y"))
-  
-  #Filter for significantly enriched TFBS in either dataset
-  df_enriched <- df_merged %>%
-    filter((enriched.x == TRUE & p_fdr.x <= 0.05) | (enriched.y == TRUE & p_fdr.y <= 0.05))
-  
-  #Add pseudocount to avoid division by zero
-  df_enriched <- df_enriched %>%
-    mutate(
-      MPRA_hits_prop.x = MPRA_hits_prop.x + 1,
-      MPRA_hits_prop.y = MPRA_hits_prop.y + 1,
-      log2_bar = log2(MPRA_hits_prop.x / MPRA_hits_prop.y)
-    )
-  
-  
-  #Combine top TFBS from both cell types
-  df_plot <- df_enriched %>%
-    mutate(color_bar = ifelse(log2_bar > 0, cell_colors[[cell1]], cell_colors[[cell2]]))
-  
-  return(df_plot)
-}
-
-  #Function to generate plot 
-  generate_barplot <- function(df_plot, cell1, cell2) {
-  ggplot(df_plot, aes(x = reorder(TFBS, log2_bar), y = log2_bar)) +
-    geom_bar(stat = "identity", fill = df_plot$color_bar, alpha = 1) +
-    scale_color_identity() +
-    labs(x = "", y = paste0("Enrichment of motif disruptions log2(", cell1, "/", cell2, ")")) +
-    theme_bw() +
-    theme(axis.text.x = element_text(angle = 90), axis.text = element_text(size = 30), axis.title = element_text(size = 30))
-}
-
-  #Apply function for all possible comparisons
-  comparisons <- list(
-    c("K562", "HepG2"),
-    c("hNPC", "K562"),
-    c("hNPC", "HepG2")
-  )
-
-  #Loop through comparisons, calculate enrichment, and generate plots
-  plot_list <- lapply(comparisons, function(pair) {
-  cell1 <- pair[1]
-  cell2 <- pair[2]
-  
-  # Calculate enrichment
-  enrichment_df <- calculate_relative_enrichment(df_enrichment, cell1, cell2)
-  
-  # Generate and return plot
-  generate_barplot(enrichment_df, cell1, cell2)
-  ggsave(paste0("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/paper_plots/060325_barplot_", cell1, "_vs_", cell2, ".pdf"), device="pdf", width=20, height=15)
-})
-
-
-
 
 
 
@@ -232,7 +182,7 @@ dotplot_highexp <- ggplot(df_tf2, aes(x=reorder(TFBS, -mean_highest_expr), y=mea
 ggsave("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/paper_plots/060324_hNPC_dotplot.pdf", plot=dotplot_highexp, width=25)
 
 
-#Correlation plot (between nucleotide conservation and relative raQTL fraction) 
+#Correlation plot (between nucleotide conservation and relative emVar fraction) 
 
 #Load large SNP2TFBS file containing positions of SNPs binding all SNP2TFBS TFs (n=195) to overlap w/ SuRE data --> the difference between this df and the snp2tfbs df is that this one contains start + end positions of each tfbs so that we can determine the position of each snp within the tfbs  
 tfs <- fread("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/TF_PWMs/210524_all_TFs.txt.gz")
@@ -246,7 +196,7 @@ tf_data <- tf_data[!(tf_data$start_PWM=="." | tf_data$end_PWM=="."),]
 #Load PWM data for all TFBS --> I made this file myself before by simply subsetting SNP2TFBS PWM's for nucleotide frequencies per position + added the TFBS name, then concatenated the data for all 195 TFBS. So this file just contains the nucleotide frequencies and TFBS names
 pwm <- fread("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/TF_PWMs/matrices/epd.expasy.org/ftp/snp2tfbs/pwms/210524_PWM_logodds.txt")
 
-#Load raw hNSC data (raQTLs + control SNPs) 
+#Load raw hNSC data (emVars + control SNPs) 
 hnsc_raqtl <- fread("/gpfs/work4/0/AdamsLab/Projects/sure/raqtls/results/freeze7/hnsc_no_downsampling_snp-permutation_freeze7_wilc-raqtls_04042024.txt")
 hnsc_raqtl$is_raqtl <- TRUE
     
@@ -269,7 +219,7 @@ pwm2$TF_name <- toupper(pwm2$TF_name)
 
       
 
-#Function that determines the position of each SuRE SNP within the PWM, then calculates the proportion of raQTLs vs controls at that position, then calculates the correlation between the highest PWM score for that position and the raQTL/control proportions. 
+#Function that determines the position of each SuRE SNP within the PWM, then calculates the proportion of emVars vs controls at that position, then calculates the correlation between the highest PWM score for that position and the raQTL/control proportions. 
 annot_SNP <- function(df, pwm){
              df$pos.sure.snp <- as.numeric(df$pos.hg19) - as.numeric(df$start_PWM) + 1 #Because position is 0-based we add +1 
              df <- merge(df, pwm, by.x=c("TF", "pos.sure.snp"), by.y=c("TF_name", "pos_within_TFBS"))
@@ -295,7 +245,7 @@ hnsc_df <- annot_SNP(hnsc_df, pwm2)
 
 
 
-#For the main plot, we visualized all TFBS enriched for raQTLs, and the top 10 most enriched for controls (total n=38 TFBS) 
+#For the main plot, we visualized all TFBS enriched for emVars, and the top 10 most enriched for controls (total n=38 TFBS) 
 #Load hNSC enrichment data (we loaded that at the beginning of the script already as "df2_enrichment" 
 hnsc_enrichment <- as.data.frame(df2_enrichment[["hNPC"]])
 df_top <- hnsc_enrichment %>%
@@ -309,7 +259,7 @@ df_ctrl <- df_top %>%
 
 df_raqtl <- df_top %>%
            filter(enriched == TRUE & p_fdr <= 0.05) %>%
-           mutate(experiment="raQTL") %>%
+           mutate(experiment="emVar") %>%
            as.data.frame()  
                         
 all <- bind_rows(df_ctrl, df_raqtl)
@@ -337,8 +287,9 @@ plot_cor <- ggplot(all_main, aes(x=factor(TFBS, levels=unique(TFBS)), y=cor_TF))
                      ) +
                     ylim(-1, 1) + 
                     labs(
-                    y = "Correlation between raQTL/control fraction with TFBS nucleotide conservation",
+                    y = "Correlation between emVar/control fraction with TFBS nucleotide conservation",
                     color = "Correlation"
                     )
             ggsave("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/paper_plots/060325_hnsc_cor_main.pdf", plot=plot_cor, device="pdf", width=20, height=15)
                            
+
