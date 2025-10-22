@@ -4,7 +4,6 @@ library(tidyverse)
 library(rtracklayer)
 
 ### STEP 1: SET PATHS ###
-#args <- commandArgs(trailingOnly=TRUE)
 qtl <- "/home/ekoornstra/raqtls/freeze7/annotations/eqtls/raqtls/all/all_Cells_Transformed_fibroblasts_raqtl-eQTL-candidates-per-gene_id_19062024.txt"
 outfile <- "/home/ekoornstra/raqtls/freeze7/annotations/eqtls/raqtls/all/all_Cells_Transformed_fibroblasts_raqtl-eQTL-candidates-per-gene_id_19062024_ANNOTATED.txt"
 raqtl_path <- "/home/ekoornstra/raqtls/freeze7/annotations/hnsc_no_downsampling_snp-permutation_freeze7_wilc-raqtls_04042024_ANNOTATED.txt"
@@ -21,7 +20,7 @@ df <- select(df, all_of(cols))
 names(df) <- new_cols
 
 
-### STEP 3: MERGE EQTL FILE WITH THE ANNOTATED RAQTL FILE ###
+### STEP 3: MERGE EQTL FILE WITH THE ANNOTATED EMVAR FILE ###
 # in the step above you remove the sure expression values, but they will be returned in this step #
 raqtl <- fread(raqtl_path)
 
@@ -45,4 +44,5 @@ b <- merge(a, gencode, by = "egene_ensembl", all.x=T)
 
 ### STEP 5: SAVE FILE ###
 fwrite(b, outfile, sep='\t', quote=F, row.names=F)
+
 
