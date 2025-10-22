@@ -15,11 +15,7 @@ outpath="files/results/"
 Zhead="Zscore"
 LDfilesuffix="ld"
 
-# annotations with sure
-#annotlist="hNSC_raQTLs_fr6.bed,HepG2_raQTLs_fr6.bed,K562_raQTLs_fr6.bed,WeakEnhancer_Hoffman.bed,UTR_5_UCSC.bed,UTR_3_UCSC.bed,TSS_Hoffman.bed,Transcribed_Hoffman.bed,TFBS_ENCODE.bed,SuperEnhancer_Hnisz.bed,Repressed_Hoffman.bed,PromoterFlanking_Hoffman.bed,Promoter_UCSC.bed,Intron_UCSC.bed,H3K27ac_PGC2.bed,H3K27ac_Hnisz.bed,H3K9ac_peaks_Trynka.bed,H3K4me3_peaks_Trynka.bed,H3K4me1_peaks_Trynka.bed,FetalDHS_Trynka.bed,Enhancer_Hoffman.bed,Enhancer_Andersson.bed,DHS_peaks_Trynka.bed,DGF_ENCODE.bed,CTCF_Hoffman.bed,Conserved_LindbladToh.bed,Coding_UCSC.bed"
-# annotations with controls
-#annotlist="hNSC_controls_fr6.bed,HepG2_controls_fr6.bed,K562_controls_fr6.bed,WeakEnhancer_Hoffman.bed,UTR_5_UCSC.bed,UTR_3_UCSC.bed,TSS_Hoffman.bed,Transcribed_Hoffman.bed,TFBS_ENCODE.bed,SuperEnhancer_Hnisz.bed,Repressed_Hoffman.bed,PromoterFlanking_Hoffman.bed,Promoter_UCSC.bed,Intron_UCSC.bed,H3K27ac_PGC2.bed,H3K27ac_Hnisz.bed,H3K9ac_peaks_Trynka.bed,H3K4me3_peaks_Trynka.bed,H3K4me1_peaks_Trynka.bed,FetalDHS_Trynka.bed,Enhancer_Hoffman.bed,Enhancer_Andersson.bed,DHS_peaks_Trynka.bed,DGF_ENCODE.bed,CTCF_Hoffman.bed,Conserved_LindbladToh.bed,Coding_UCSC.bed"
-# just ldsc
+# annotations
 annotlist="WeakEnhancer_Hoffman.bed,UTR_5_UCSC.bed,UTR_3_UCSC.bed,TSS_Hoffman.bed,Transcribed_Hoffman.bed,TFBS_ENCODE.bed,SuperEnhancer_Hnisz.bed,Repressed_Hoffman.bed,PromoterFlanking_Hoffman.bed,Promoter_UCSC.bed,Intron_UCSC.bed,H3K27ac_PGC2.bed,H3K27ac_Hnisz.bed,H3K9ac_peaks_Trynka.bed,H3K4me3_peaks_Trynka.bed,H3K4me1_peaks_Trynka.bed,FetalDHS_Trynka.bed,Enhancer_Hoffman.bed,Enhancer_Andersson.bed,DHS_peaks_Trynka.bed,DGF_ENCODE.bed,CTCF_Hoffman.bed,Conserved_LindbladToh.bed,Coding_UCSC.bed"
 
 # load packages
@@ -30,7 +26,6 @@ module load SciPy-bundle/2023.07-gfbf-2023a
 
 # run paintor
 echo "running paintor for all loci"
-
 cd /gpfs/home6/ekoornstra/opt/PAINTOR_V3.0/
 
 ./PAINTOR -input ${path}${inputlist} \
@@ -40,8 +35,3 @@ cd /gpfs/home6/ekoornstra/opt/PAINTOR_V3.0/
   -Gname Enrich.ldsc -Lname BF.ldsc \
   -annotations ${annotlist}
 
-#./PAINTOR -input ${path}${inputlist} \
-#  -in ${path}${filepath} \
-#  -out ${path}${outpath} \
-#  -Zhead Zscore -LDname ld -enumerate 3 \
-#  -annotations ${annotationlist}
