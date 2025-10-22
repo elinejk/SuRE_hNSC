@@ -57,12 +57,8 @@ These scripts require GWAS summary statistics and FUMA output files (files conta
 
 
 ## 4. Distance to the lead SNP
-**01_final_distance-to-lead.job:** runs the script below and requires a file with SuRE SNPs (this can be emVars, control SNPs or all SuRE SNPs), a file containing the paths to sumstats, FUMA lead SNP files, and FUMA locus files (= infofile). You need to run this script three times, once for each SuRE SNP set.
-- **01_distance_to_lead_SNP.R:** for each row (phenotype) in the infofile, it determines which SuRE SNPs are in the locus, if they are part of the sumstats, determines their distance to the lead SNP, and filters on genome-wide significance (PHENO_SURESET_gwassign_distance-snp-to-lead_16042024.txt). 
+**distance_to_lead_fileprep.R:** for each row (phenotype) in the infofile, it determines which SuRE SNPs are in the locus, if they are part of the GWAS summary statistics, determines their distance to the lead SNP, and filters on genome-wide significance and the shortest distance to the lead SNP. You need to run this script three times: for emVars, for control SNPs, and for all SuRE SNPs
 
-**02_combine_distance_sets.R:** combines the output files from script 01 (PHENO_SURESET_gwassign_distance-snp-to-lead_16042024.txt) for the different phenotypes in a file with 'phenotype' allphenos. You need to run this script three times, once for each SuRE SNP set.
-
-**03_distance_to_lead_snp_plots.R:** It takes the output files from script 02 (emVars, control SNPs, and all SuRE SNPs), and creates a bargraph showing the distribution in kb for each set.
-
+**distance_to_lead_plots.R:** creates a histogram to show the distance to the lead SNP for emVars, control SNPs and all SuRE SNPs, for all phenotypes combined. It also calcualtes p-values
 
 
