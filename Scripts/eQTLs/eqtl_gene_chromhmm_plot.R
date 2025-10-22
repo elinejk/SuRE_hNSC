@@ -4,7 +4,7 @@ library(data.table)
 library(biomaRt)
 library(dplyr)
 
-### PATHS
+### PATHS ###
 enh_path <- "V:/ddata/CELB/poot/Eline Koornstra/Resources/Annotations/ROADMAP/"
 npc <- "E009_25_imputed12marks_dense.bed.gz"
 fib_skin <- "E126_25_imputed12marks_dense.bed.gz"
@@ -14,17 +14,19 @@ DNase_path <- "V:/ddata/CELB/poot/Eline Koornstra/Resources/Annotations/ENCODE/D
 
 eqtl_path <- "V:/ddata/CELB/poot/Eline Koornstra/SuRE_general/Results/freeze7/figures/eQTLs/fibroblasts/lolliplot/fibroblasts_eQTLs_RERE_01072024.txt"
 out_path <- "V:/ddata/CELB/poot/Eline Koornstra/SuRE_general/Results/freeze7/figures/eQTLs/fibroblasts/"
-### SET PARAMETERS
+
+### SET PARAMETERS ###
+# gene
 gn <- "RERE"
 
-# coordinates plot
+# coordinates for the plot
 chr <- "chr1"
 st <- 8402457
 ed <- 8887702
 
-GR<-makeGRangesFromDataFrame(data.frame(chr=chr, start=st, end=ed, score=1))
+GR <- makeGRangesFromDataFrame(data.frame(chr=chr, start=st, end=ed, score=1))
 
-### eQTL TRACK
+### eQTL TRACK ###
 eqtl <- fread(eqtl_path)
 er <- GRanges(seqnames =Rle(eqtl$chrom), 
               ranges=IRanges(start=eqtl$position, width=1),
@@ -39,7 +41,7 @@ etrack <- AnnotationTrack(er, name = "eQTLs", chromosome = chr, start = st, end 
                           col.axis = "black",
                           stacking = "dense")
 
-### GENE TRACK 
+### GENE TRACK ###
 bm <- useEnsembl(host = "https://grch37.ensembl.org", 
                  biomart = "ENSEMBL_MART_ENSEMBL", 
                  dataset = "hsapiens_gene_ensembl")
@@ -65,12 +67,11 @@ biomTrack<-BiomartGeneRegionTrack(genome="hg19",
                                   col.axis = "black")
 
 
-### CHROM HMM
+### CHROM HMM ###
 # NPC
 e009 <- import(paste0(enh_path, npc), format = "bed", which=GR, genome = "hg19")
 e126 <- import(paste0(enh_path, fib_skin), format = "bed", which=GR, genome = "hg19")
 e128 <- import(paste0(enh_path, fib_lung), format = "bed", which=GR, genome = "hg19")
-
 
 ntrack <- AnnotationTrack(e009, 
                           chromosome = chr, 
@@ -109,9 +110,7 @@ ltrack <- AnnotationTrack(e128,
                           col.axis = "black")
 
 
-
-
-### DNASE TRACK
+### DNASE TRACK ###
 DNase <- import(DNase_path, format = "bigWig", object = "GRanges", selection = BigWigSelection(ranges=GR), which=DNase_path)
 dnaseTrack<-DataTrack(range=DNase,
                       genome="hg19",
@@ -130,7 +129,7 @@ dnaseTrack<-DataTrack(range=DNase,
 # legend track
 gtrack <- GenomeAxisTrack(labelPos = "below", col = "black", fontcolor = "black", lwd = 1, exponent= 0)
 
-### FINAL TRACK
+### FINAL TRACK ###
 plotTracks(list(etrack, biomTrack, ntrack, ftrack, ltrack, dnaseTrack, gtrack),
            chromosome=chr,
            from=st,
@@ -154,6 +153,7 @@ plotTracks(list(etrack, biomTrack, ntrack, ftrack, ltrack, dnaseTrack, gtrack),
            col.axis="black"
 )
 dev.off()
+
 
 
 
