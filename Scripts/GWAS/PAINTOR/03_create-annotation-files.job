@@ -41,10 +41,3 @@ wait
 echo "all done"
 
 
-
-#python2 /gpfs/home6/ekoornstra/opt/PAINTOR_V3.0/PAINTOR_Utilities/AnnotateLocus.py \
-#  --input ${path}/${annot} \
-#  --locus ${path}/${pheno}/files/${locus}15 \
-#  --out ${path}/${pheno}/${locus}15.annotations \
-#  --chr CHR \
-#  --pos POS 
