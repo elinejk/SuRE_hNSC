@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH --output=/home/ekoornstra/paintor/freeze6/test/cd_for_iq_loci/logs/iq_locus-%j.out
+#SBATCH --mail-type=END
+#SBATCH --mail-user=e.koornstra@erasmusmc.nl
+#SBATCH --nodes=1
+#SBATCH --tasks=1
+#SBATCH --time=0:30:00
+#SBATCH --cpus-per-task=16
+
+## IMPORTANT BEFORE RUNNING: 
+## 1) CHECK IF THE GWAS HAS A ZSCORE, IF NO CHECK WHICH COLS ARE NEEDED TO GENERATE IT
+# paths
+out_path="/gpfs/home6/ekoornstra/surexgwas/freeze7/finemapping/SCZ/"
+loci_file="/gpfs/home6/ekoornstra/summary_statistics/FUMA_hg19SCZ_GWAS_SNPs_in_loci.txt"
+gwas_file="/gpfs/home6/ekoornstra/summary_statistics/hg19/PGC3_SCZ_wave3.primary.autosome.public.v3.txt.gz"
+
+#load packages
+module load 2022
+module load R/4.2.1-foss-2022a
+export R_LIBS=/gpfs/home6/ekoornstra/rpackages:$R_LIBS
+
+# run the r script created for this
+Rscript locus-file_paintor.R ${file_path} ${loci_file} ${gwas_file}

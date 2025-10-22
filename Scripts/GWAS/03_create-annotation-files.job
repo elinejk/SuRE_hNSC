@@ -1,0 +1,50 @@
+#!/bin/bash
+#SBATCH --output=/home/ekoornstra/surexgwas/freeze7/finemapping/SCZ/logs/scz_annot-%j.out
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=e.koornstra@erasmusmc.nl
+#SBATCH --nodes=1
+#SBATCH --tasks=1
+#SBATCH --time=1:00:00
+#SBATCH --cpus-per-task=16
+
+# paths
+path="/gpfs/home6/ekoornstra/surexgwas/freeze7/finemapping"
+annot="annotation_paths.txt"
+locus="locus"
+pheno="SCZ"
+
+# load modules
+echo "reloading modules"
+module purge 
+module load 2023
+module load Python/2.7.18-GCCcore-12.3.0 
+
+# change the file endings
+cd ${path}/${pheno}/files/running-files/
+
+for v in *.processed ; do mv "$v"  "$(basename "$v" .processed)"; done
+
+
+# for each locus [i] make annotation files
+echo "creating annotation files per locus"
+for i in {1..184}
+do
+python2 /gpfs/home6/ekoornstra/opt/PAINTOR_V3.0/PAINTOR_Utilities/AnnotateLocus.py \
+  --input ${path}/${annot} \
+  --locus ${path}/${pheno}/files/running-files/${locus}$i \
+  --out ${path}/${pheno}/files/running-files/${locus}$i.annotations \
+  --chr CHR \
+  --pos pos &
+done
+
+wait
+echo "all done"
+
+
+
+#python2 /gpfs/home6/ekoornstra/opt/PAINTOR_V3.0/PAINTOR_Utilities/AnnotateLocus.py \
+#  --input ${path}/${annot} \
+#  --locus ${path}/${pheno}/files/${locus}15 \
+#  --out ${path}/${pheno}/${locus}15.annotations \
+#  --chr CHR \
+#  --pos POS 

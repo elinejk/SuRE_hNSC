@@ -1,0 +1,63 @@
+#!/bin/bash
+#SBATCH --output=/home/ekoornstra/paintor/freeze6/asd/logs/asd_ld-%j.out
+#SBATCH --mail-type=END
+#SBATCH --mail-user=e.koornstra@erasmusmc.nl
+#SBATCH --nodes=1
+#SBATCH --tasks=1
+#SBATCH --time=1:00:00
+#SBATCH --cpus-per-task=32
+
+## IMPORTANT: COLUMNS NEED TO BE IN A SPECIFIC ORDER FOR THE ALLELE AND Z SCORE FLIP TO WORK PROPERLY: CHR POS RSID A1 A2 ZSCORE
+
+# paths
+path='/gpfs/home6/ekoornstra/paintor'
+locus='locus'
+ref='ALL.chr8.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz'
+ref2='ALL.chr20.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz'
+map='integrated_call_samples_v3.20130502.ALL.panel'
+out='locus'
+pheno='asd'
+
+# load modules
+echo "loading modules"
+module load Python/3.9.5-GCCcore-10.3.0
+
+# for each locus file [i] calculate ld files
+echo "calculating ld scores per locus"
+
+cd /gpfs/home6/ekoornstra/opt/PAINTOR_V3.0/PAINTOR_Utilities/
+
+for i in {1..1}
+do
+python CalcLD_1KG_VCF_flip.py \
+  --locus ${path}/freeze6/${pheno}/files/gwas-loci/${locus}$i \
+  --reference ${path}/1000G_phase3_files/${ref} \
+  --map ${path}/1000G_phase3_files/${map} \
+  --effect_allele A1 \
+  --alt_allele A2 \
+  --population EUR \
+  --Zhead Zscore \
+  --out_name ${path}/freeze6/${pheno}/files/running-files/${out}$i \
+  --position pos &
+done
+
+wait
+echo "all done"
+
+for i in {2..3}
+do
+python CalcLD_1KG_VCF_flip.py \
+  --locus ${path}/freeze6/${pheno}/files/gwas-loci/${locus}$i \
+  --reference ${path}/1000G_phase3_files/${ref2} \
+  --map ${path}/1000G_phase3_files/${map} \
+  --effect_allele A1 \
+  --alt_allele A2 \
+  --population EUR \
+  --Zhead Zscore \
+  --out_name ${path}/freeze6/${pheno}/files/running-files/${out}$i \
+  --position pos &
+done
+
+wait
+echo "all done"
+
