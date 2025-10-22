@@ -15,7 +15,7 @@ levs <- c("E009 Active enhancer", "E009 Promoter",
           "NPC DHS broadpeak","NPC DHS narrowpeak")
 
 df$Annotation = factor(df$Annotation, levels = levs)
-df$Group = factor(df$Group, levels = c("hNSC raQTLs", "hNSC controls", "all SuRE SNPs"))
+df$Group = factor(df$Group, levels = c("hNSC emVars", "hNSC controls", "all SuRE SNPs"))
 
 # STEP 3: prepare the locations of the statistics
 x <- factor(stat.test$Annotation, 
@@ -49,6 +49,7 @@ p
 
 # STEP 6: save the plot
 ggsave(paste0(path, "locations/hnsc_locations_freeze7_Routput_24042024.pdf"), p, units="mm", height=120, width=150)
+
 
 
 
