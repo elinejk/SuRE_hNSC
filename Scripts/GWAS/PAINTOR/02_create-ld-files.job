@@ -1,0 +1,71 @@
+#!/bin/bash
+#SBATCH --output=/home/ekoornstra/surexgwas/freeze7/finemapping/SCZ/logs/scz_ld-%j.out
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=e.koornstra@erasmusmc.nl
+#SBATCH --nodes=1
+#SBATCH --tasks=1
+#SBATCH --time=4:00:00
+#SBATCH --cpus-per-task=32
+
+
+## IMPORTANT: COLUMNS NEED TO BE IN A SPECIFIC ORDER FOR THE ALLELE AND Z SCORE FLIP TO WORK PROPERLY: CHR POS RSID A1 A2 ZSCORE
+
+# paths
+path='/gpfs/home6/ekoornstra/surexgwas/freeze7/finemapping'
+resource_path='/projects/0/AdamsLab/Projects/sure/finemapping/data'
+locus='locus'
+out='locus'
+pheno='SCZ'
+
+ref='ALL.chr1.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz'
+ref2='ALL.chr2.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz'
+
+map='integrated_call_samples_v3.20130502.ALL.panel'
+
+
+# load modules
+echo "loading modules"
+module purge 
+module load 2023
+module load SciPy-bundle/2023.07-gfbf-2023a
+
+# for each locus file [i] calculate ld files
+echo "calculating ld scores per locus"
+
+cd /gpfs/home6/ekoornstra/opt/PAINTOR_V3.0/PAINTOR_Utilities/
+
+# chromosome 1
+for i in {1..24}
+do
+python CalcLD_1KG_VCF_flip.py \
+  --locus ${path}/${pheno}/files/gwas-loci/${locus}$i \
+  --reference ${resource_path}/1000G_phase3_files/${ref} \
+  --map ${resource_path}/1000G_phase3_files/${map} \
+  --effect_allele A1 \
+  --alt_allele A2 \
+  --population EUR \
+  --Zhead Zscore \
+  --out_name ${path}/${pheno}/files/running-files/${out}$i \
+  --position pos &
+done
+
+wait
+echo "finished chromosome 1"
+
+#chromosome 2
+for i in {25..51}
+do
+python CalcLD_1KG_VCF_flip.py \
+  --locus ${path}/${pheno}/files/gwas-loci/${locus}$i \
+  --reference ${resource_path}/1000G_phase3_files/${ref2} \
+  --map ${resource_path}/1000G_phase3_files/${map} \
+  --effect_allele A1 \
+  --alt_allele A2 \
+  --population EUR \
+  --Zhead Zscore \
+  --out_name ${path}/${pheno}/files/running-files/${out}$i \
+  --position pos &
+done
+
+wait
+echo "finished chromosome 2"
