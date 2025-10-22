@@ -25,7 +25,7 @@ global_size = 12
 a <- df[df$Cell == cell, ]
 
 # set comparison levels
-a$Comparison <- factor(a$Comparison, levels = c("raQTLs vs controls", "raQTLs vs all SuRE SNPs"))
+a$Comparison <- factor(a$Comparison, levels = c("emVars vs controls", "emVars vs all SuRE SNPs"))
 
 # add pvalue asterisks
 a <- a %>%
@@ -64,5 +64,6 @@ fo <- ggplot(a, aes(x=Annotation, y=`Odds ratio`)) +
         panel.grid.major = element_blank())
 
 ggsave(paste0(outpath, cell, "_locations_OR_", dag, ".pdf"), fo, units="mm", height=200, width=170)
+
 
 
