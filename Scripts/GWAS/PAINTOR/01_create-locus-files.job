@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --output=/home/ekoornstra/paintor/freeze6/test/cd_for_iq_loci/logs/iq_locus-%j.out
+#SBATCH --output=/home/ekoornstra/paintor/freeze7/scz_locus-%j.out
 #SBATCH --mail-type=END
 #SBATCH --mail-user=e.koornstra@erasmusmc.nl
 #SBATCH --nodes=1
