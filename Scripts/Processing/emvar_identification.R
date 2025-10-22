@@ -8,7 +8,7 @@ runtype <- "no_downsampling_snp-permutation"
 freeze <- "freeze7"
 dag <- "04042024"
 
-# read ans subset sure file
+# read and subset sure file
 sure <- fread(sure_path) %>%
   as.data.table
 
@@ -23,7 +23,7 @@ sure <- select(sure, all_of(colss))
 # subset on element counts
 a <- sure[sure$ref.element.count >= 10 & sure$ref.element.count < 1000 & sure$alt.element.count >= 10 & sure$alt.element.count < 1000, ]
 
-## HNPC ##
+## HNSC ##
 # with a loop
 subs <- a[a$hNPC.cDNA.ref.mean > 4 | a$hNPC.cDNA.alt.mean > 4, ]
 
@@ -40,7 +40,7 @@ for (value in p1) {
   }
 }
 
-# raqtls
+# emVars
 raqtls <- filter(subs, hNPC.wilcoxon.pvalue < value)
 controls <- filter(subs, hNPC.wilcoxon.pvalue >= value)
 paste0(nrow(raqtls), " hNSC raQTLs were called with a p-value <", value)
@@ -68,7 +68,7 @@ for (value in p1) {
 }
 
 
-# raqtls
+# emVars
 raqtls <- filter(subs, HepG2.wilcoxon.pvalue < value)
 controls <- filter(subs, HepG2.wilcoxon.pvalue >= value)
 paste0(nrow(raqtls), " HepG2 raQTLs were called with a p-value <", value)
@@ -95,7 +95,7 @@ for (value in p1) {
   }
 }
 
-# raqtls
+# emVars
 raqtls <- filter(subs, K562.wilcoxon.pvalue < value)
 controls <- filter(subs, K562.wilcoxon.pvalue >= value)
 paste0(nrow(raqtls), " K562 raQTLs were called with a p-value <", value) 
