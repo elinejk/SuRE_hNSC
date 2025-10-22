@@ -52,6 +52,6 @@ We selected emVars and control SNPs binding one of the five most enriched TFBS: 
 
 **main_jaspar.sh:** this script allows for running the above script in parallel for each of the five TFBS. 
 
-**JASPAR_enrichment_neighboring.R:** This script calculates the mean OR of each TF class, providing an overall measure of whether certain TF classes are more frequently associated with emVars than control SNPs. A mean OR > 1 suggests a TF class is more enriched in emVar regions, while a mean OR < 1 suggests depletion
+**enrichment_total.R:** This script calculates the mean OR of each TF class, providing an overall measure of whether certain TF classes are more frequently associated with emVars than control SNPs. A mean OR > 1 suggests a TF class is more enriched in emVar regions, while a mean OR < 1 suggests depletion
 
 
