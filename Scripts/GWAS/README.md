@@ -31,6 +31,8 @@ These scripts require GWAS summary statistics and FUMA output files (files conta
 
 **02_emVar_in_locus_listfile.R:** takes the output from part 1 of script 01, and saves only those that are emVars. The information in this output file was later used to determine which locus to highlight.
 
+**emvar_among_multisignif_locus.R:** to determine the number of emVars in loci with more than one significant variant.
+
 
 ### 2.2 Highlighted locus
 **surexgwas_LOCUS-plots.R:** for a selected locus of a phenotype it will plot the GWAS SNPs (colored on SuRE-tested), emVars within the locus, and genes within the locus. It adds a highlight for the region you specify (here this is the region you want to plot in the next script). 
