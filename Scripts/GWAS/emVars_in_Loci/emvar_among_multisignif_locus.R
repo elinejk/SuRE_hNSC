@@ -53,3 +53,4 @@ combined %>%
             min_distance = min(distance_lead)/1000,
             max_distance = max(distance_lead)/1000) %>%
   as.data.table()
+
