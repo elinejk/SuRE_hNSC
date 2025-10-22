@@ -2,20 +2,18 @@ library(data.table)
 library(GenomicRanges)
 library(rtracklayer)
 
-# set paths
-args<- commandArgs(TRUE)
+## PATHS ##
+args <- commandArgs(TRUE)
 
 file_path <- args[1]
 loci_file <- args[2]
 gwas_file <- args[3]
 
-#read file with locus coordinates
+## PREPARE LOCUS FILE ##
 coord <- fread(loci_file)
-
-#convert to granges
 coord_gr <- GRanges(seqnames=Rle(coord$CHR), ranges=IRanges(start=coord$start, end=coord$end))
 
-#read gwas files
+## PREPARE GWAS SUMMARY STATISTICS ##
 gwas <- fread(gwas_file, fill = TRUE)
 
 #standardize the certain headers
@@ -23,7 +21,6 @@ names(gwas)[names(gwas) == 'ID' | names(gwas) == 'MarkerName' | names(gwas) == '
 names(gwas)[names(gwas) == 'chromosome' | names(gwas) == 'Chromosome' | names(gwas) == 'CHROM'] <- "CHR"
 names(gwas)[names(gwas) == 'BP' | names(gwas) == 'base_pair_location' | names(gwas) == 'Position'] <- "POS"
 names(gwas)[names(gwas) == 'PVAL' | names(gwas) == 'Pval' | names(gwas) == 'p_value' | names(gwas) == 'P-value'] <- "P"
-
 
 # if necessary add a Z score | check this manually
 # z score can be calculated as effect size/SE or beta/SE or log(OR)/SE
@@ -45,8 +42,7 @@ gwas_gr <- GRanges(seqnames = Rle(gwas$CHR),
   A2 = gwas$A2
   )
 
-#for each chromosome in locusfile, subset gwas file and see if coordinates are within locus and save file
-# intersect?
+## SUBSET THE GWAS FILE TO SEE IF COORDINATES ARE WITHIN LOCI ##
 for (i in seq_along(coord_gr)){
   ov_gr <- subsetByOverlaps(gwas_gr, coord_gr[i])
   ov <- as.data.table(ov_gr)
