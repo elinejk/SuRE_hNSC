@@ -4,7 +4,7 @@ library(data.table)
 library(biomaRt)
 library(dplyr)
 
-# paths and urls
+### SET PATHS ###
 sure_path <- "V:/ddata/CELB/poot/Eline Koornstra/raQTLsxGWAS/freeze7/sure-data_cp-locus184.txt"
 raqtl_path <- "V:/ddata/CELB/poot/Eline Koornstra/SuRE_general/Results/freeze7/hnsc_no_downsampling_snp-permutation_freeze7_wilc-raqtls_04042024.txt"
 gwas_path <- "C:/Users/084902/Documents/GWAS_FILES/ea/GWAS_CP_all.txt.gz"
@@ -15,7 +15,7 @@ prom_path <- "V:/ddata/CELB/poot/Eline Koornstra/Resources/Annotations/ROADMAP/E
 
 out_path <- "V:/ddata/CELB/poot/Eline Koornstra/raQTLsxGWAS/freeze7/locus_plots/CP_locus184_zoomlocus_"
 
-### SET PARAMETERS
+### SET PARAMETERS ###
 # zoom plot
 chr <- "chr22"
 st <- 41945000
@@ -28,12 +28,12 @@ hls <- 41985908
 hle <- 41986008
 
 
-### GENERAL TRACKS
+### GENERAL TRACKS ###
 gtrack <- GenomeAxisTrack(labelPos = "below", col = "black", fontcolor = "black", lwd = 1, exponent= 0)
 
 
 ###############
-### GWAS TRACKS
+### GWAS TRACKS ###
 gwas <- fread(gwas_path, fill = TRUE)
 cols <- c("CHR", "POS", "MarkerName", "Pval")
 cols2 <- c("CHR", "BP", "SNP", "P")
@@ -64,7 +64,7 @@ df <- locus %>%
   mutate(BPcum=BP+tot) %>%
   # add annotation information
   mutate(is_sign = if_else(P <= 5*10^-8, "significant", "not significant")) %>%
-  mutate(sure_tested = if_else(SNP %in% sure$SNP_ID & SNP %in% raqtls$SNP_ID, "raQTL", 
+  mutate(sure_tested = if_else(SNP %in% sure$SNP_ID & SNP %in% raqtls$SNP_ID, "emVar", 
                                if_else(SNP %in% sure$SNP_ID & !SNP %in% raqtls$SNP_ID, "SuRE tested", "not tested")))
 
 # prepare your axis
@@ -76,7 +76,7 @@ axisdf = df %>%
 # create the plot
 df$logP <- -log10(df$P)
 
-df_qtl <- filter(df, sure_tested == "raQTL")
+df_qtl <- filter(df, sure_tested == "emVar")
 df_sign <- filter(df, sure_tested == "SuRE tested")
 df_snp <- filter(df, sure_tested == "not tested")
 #df_sign <- filter(df, is_sign == "significant")
@@ -136,14 +136,14 @@ mtrack <- OverlayTrack(trackList=list[!is.na(list)], name="GWAS -log10(P)",
                        background.title = "white", col.title = "black", col.axis = "black")
 
 
-### SuRE TRACK
+### SuRE TRACK ###
 #sure$chrom <- paste0("chr", sure$chrom)
 sure <- sure[sure$chrom == chr & sure$pos.hg19 >= st & sure$pos.hg19 <= ed, ]
 sure <- sure[order(chrom, pos.hg19), ]
 sure <- sure[sure$SNP_ID %in% locus$SNP]
-sure$status <- ifelse(sure$SNP_ID %in% raqtls$SNP_ID, "raqtl", "no raqtl")
+sure$status <- ifelse(sure$SNP_ID %in% raqtls$SNP_ID, "emvar", "no emvar")
 
-raqtl <- sure[sure$status == "raqtl", ]
+raqtl <- sure[sure$status == "emvar", ]
 rm(raqtls)
 
 sr <- GRanges(seqnames =Rle(raqtl$chrom), 
@@ -151,7 +151,7 @@ sr <- GRanges(seqnames =Rle(raqtl$chrom),
 so <- GRanges(seqnames =Rle(sure$chrom), 
               ranges=IRanges(start=sure$pos.hg19, width=1))
 
-rtrack <- AnnotationTrack(sr, name = "raQTLs", chromosome = chr, start = st, end = ed, 
+rtrack <- AnnotationTrack(sr, name = "emVars", chromosome = chr, start = st, end = ed, 
                           col="#E69F00", 
                           fill = "#E69F00",
                           lwd = 0.1, 
@@ -178,7 +178,7 @@ strack <- AnnotationTrack(so, name = "SuRE-tested GWAS SNPs", chromosome = chr, 
 
 
 ###############
-### GENE TRACK 
+### GENE TRACK ###
 bm <- useEnsembl(host = "https://grch37.ensembl.org", 
                  biomart = "ENSEMBL_MART_ENSEMBL", 
                  dataset = "hsapiens_gene_ensembl")
@@ -204,7 +204,7 @@ biomTrack<-BiomartGeneRegionTrack(genome="hg19",
 
 
 ###############
-### DNASE TRACK
+### DNASE TRACK ###
 DNase <- import(DNase_path, format = "bigWig", object = "GRanges", selection = BigWigSelection(ranges=GR), which=DNase_path)
 dnaseTrack<-DataTrack(range=DNase,
                       genome="hg19",
@@ -218,7 +218,7 @@ dnaseTrack<-DataTrack(range=DNase,
                       name="DNaseI")
 
 ###############
-### CHROMHMM TRACK
+### CHROMHMM TRACK ###
 enh <- import(enh_path, format = "bed", which=GR, genome = "hg19")
 prom <- import(prom_path, format = "bed", which=GR, genome = "hg19")
 
@@ -243,13 +243,13 @@ ptrack <- AnnotationTrack(prom,
                           name = "Promoter")
 
 ###############
-### HIGHLIGHT TRACK
+### HIGHLIGHT TRACK ###
 ht <- HighlightTrack(trackList = list(mtrack, rtrack, biomTrack, ptrack, etrack, dnaseTrack),
                      start=hls, end=hle, chromosome = chr,
                      col="#d8d4e9", fill="#d8d4e9")
 
 ###############
-### FINAL TRACK
+### FINAL TRACK ###
 plotTracks(list(ht, gtrack),
            chromosome=chr,
            from=st,
@@ -273,3 +273,4 @@ plotTracks(list(ht, gtrack),
            col.axis="black"
 )
 dev.off()
+
