@@ -3,15 +3,13 @@ library(dplyr)
 library(ggplot2)
 library(ggpubr)
 
-### paths
+### PATH AND PARAMETERS ###
 path <- "V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/GWAS/freeze7/distance_to_lead/"
 
-
-### parameters
 sets <- c("controls", "all_sure") # the sets you want to compare your emVars to
 
 
-### Prepare the files
+### PREPARE FILES ###
 ## load emVar file
 raqtl <- fread(paste0(path, "20250923_allphenos_raqtls_gwassign_distance-snp-to-lead.txt"))
 raqtl <- raqtl[raqtl$ingwas == 1, ]
@@ -35,7 +33,7 @@ raqtl <- select(raqtl, all_of(cols))
  
 b <- raqtl
 	
-## start a loop for the different control datasets to merge them to the raqtl set
+## start a loop for the different control datasets to merge them to the EMVAR set
 for (set in sets) {
   # prepare the control dataset
   cont <- fread(paste0(path, "20250923_allphenos_", set, "_gwassign_distance-snp-to-lead.txt"))
@@ -50,7 +48,7 @@ for (set in sets) {
 }
 
 
-### retain those within 100 kb
+### FILTER ON DISTANCE ###
 b$distance_lead <- as.numeric(b$distance_lead)
 b$distance_lead <- as.numeric(b$distance_lead/1000)
 b$Dataset <- factor(b$Dataset, levels = c("emVar", "controls", "all_sure"))
@@ -59,10 +57,9 @@ kb <- b[b$distance_lead <= 100, ]
 
         
 
-### make the plot
+### MAKE THE PLOT ##
 pl <- ggplot(data = kb, aes(x=distance_lead, y = after_stat(density))) +
-  # the histogram wants to put 0 in the middle of a bin so the bin would be -5 to 5, but you want 0-10. you can change this by updating the boudaries. without the boundary you get 11 bins, and with the boundary you get 10
-  # here using blocks of 20 kb
+
   geom_histogram(aes(fill=Dataset), position=position_dodge(), binwidth = 20, 
   color="black", boundary=0) +
   scale_x_continuous(breaks=seq(0, 100, by = 20)) +
@@ -73,8 +70,7 @@ pl <- ggplot(data = kb, aes(x=distance_lead, y = after_stat(density))) +
 ggsave(paste0(path, "allphenos_gwassign_snp-to-lead_emVar_vs_control_vs_allsure_histo_23092025.pdf"), pl, units="mm",width=200, height = 250)
 
 
-
-### calculate the p-values
+### CALCULATE P-VALUES ###
 ## first put them into bins
 sub <- b[b$distance_lead < 100, ]
 
@@ -129,5 +125,6 @@ result_ea[, comparison := "emVar_vs_all"]
 all_results <- rbind(result_ec, result_ea)
 
 print(all_results)
+
 
 
