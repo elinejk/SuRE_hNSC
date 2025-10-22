@@ -22,11 +22,11 @@ module load BEDTools/2.30.0-GCC-10.3.0
 
 mkdir output
 
-#raQTL over control enrichment
+#emVar over control enrichment
 mkdir output/twosets_raqtl_enr_100bp_"$tfbs"
 bin/JASPAR_enrich.sh twoSets hg38 $setone $settwo 020524_twosets_raqtl_enr_100bp_"$tfbs" 2022 2 
 
-#control over raQTL enrichment
+#control over emVar enrichment
 mkdir output/twosets_ctrl_enr_100bp_"$tfbs"
 bin/JASPAR_enrich.sh twoSets hg38 $settwo $setone 020524_twosets_ctrl_enr_100bp_"$tfbs" 2022 2 
 
