@@ -11,6 +11,22 @@ snp2tfbs <- fread("/gpfs/work4/0/AdamsLab/Projects/sure/resources/SNP2TFBS/snp2t
 # Keep only SNPs with rs or ss identifiers
 snp2tfbs <- snp2tfbs[grepl("rs|ss", snp2tfbs$SNP_ID),]
 
+# Keep only the first TFBS if wanted
+firsttfbs <- TRUE
+
+if(firsttfbs == TRUE) {
+  basesave <- "_results_firstTFBS_" # part of name of the results file
+  snp2tfbs <- snp2tfbs %>%
+    mutate(row_id = row_number(),
+           abs_scoreDiff = abs(scoreDiff)) %>%
+    group_by(SNP_ID) %>%
+    slice_max(order_by = abs_scoreDiff, with_ties = TRUE) %>%
+    slice(1) %>%   # among ties, keep the first
+    ungroup()
+} else {
+  basesave <- "_results_"
+}
+
 # Define cell types
 cell_types <- c("k562", "hepg2", "hnsc")
 
@@ -42,14 +58,14 @@ calculate_tfbs_enrichment <- function(cell_type) {
     controls_merged <- merge(controls, snp2tfbs, by = "SNP_ID")
     controls_merged$raqtl <- FALSE
 
-    # Combine raQTL and control SNPs
+    # Combine emVar and control SNPs
     all_snp <- rbind(raqtls_merged, controls_merged)
 
     # Get unique TFBS names
     u_tf <- unique(na.omit(snp2tfbs$TFBS))
 
 
-    #1. Make new df indicating whether the SNPs are raQTLs or not
+    #1. Make new df indicating whether the SNPs are emVars or not
     dd <- all_snp[,c("SNP_ID", "raqtl")] 
     dd <- as.data.frame(dd)
     
@@ -58,7 +74,7 @@ calculate_tfbs_enrichment <- function(cell_type) {
       as.logical(all_snp[,TFBS] == n, na.rm=T)
       })
       
-    #3. Now for the raQTLs and controls we get a count
+    #3. Now for the emVars and controls we get a count
     raqtl_n <- table(dd$raqtl)
     
     fam_test <- lapply(u_tf, function(n) {
@@ -125,14 +141,17 @@ calculate_tfbs_enrichment <- function(cell_type) {
     all_sumstats <- merge(df_new, summary_df, by.x = "TFBS", by.y = "tf_name")
 
     # Save results
-    output_path <- paste0("/gpfs/work4/0/AdamsLab/Projects/sure/transcription_factors/TF_enrichment/", 
-                          toupper(cell_type), "_results_", format(Sys.Date(), "%d%m%y"), ".txt")
+    opath <- paste0("V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/transcription_factors/TF_enrichment/", 
+                    toupper(cell_type), "_SNP-level", basesave, format(Sys.Date(), "%d%m%y"), ".txt")
+    fwrite(df_concordance, opath, sep = "\t")
+    
+    output_path <- paste0("V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/transcription_factors/TF_enrichment/", 
+                          toupper(cell_type), basesave, format(Sys.Date(), "%d%m%y"), ".txt")
     fwrite(all_sumstats, output_path, sep = "\t")
-
-    return(all_sumstats)
 }
 
 
 # Apply Function to Each Cell Type
 results_list <- lapply(cell_types, calculate_tfbs_enrichment)
+
 
