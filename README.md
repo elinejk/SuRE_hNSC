@@ -23,16 +23,17 @@ Contains the scripts used to
 Contains the scripts used to 
 - annotate the SuRE data with enhancers, promoters, DHS, and Gencode genetic information;
 - annotate emVars with putative targets;
-- generate plots showing the fold enrichment (Figures 1E, S2B, S2C) or percentage of overlap (Figure S2A)
+- generate plots showing the fold enrichment (Figures 1E, S2B, S2C) or percentage of overlap (Figure S2A);
+- compare SuRe allelic imbalance to DHS sensitivity (Figures 1F, 1G)
 
 ### 4. TFBS
 Contains the scripts used to 
 - annotate the SuRE data with TFBS from SNP2TFBS;
-- generate plots showing the overlap and concordance with the first TFBS (Figures 1F, 1G, S2D, S2E);
+- generate plots showing the overlap and concordance with the first TFBS (Figures 1H, 1I, S2D, S2E);
 - determine the enrichment of TFBS for emVars vs controls (Figures 2A, 2B, S3A, S3B) and between cell types (Figures 2E, 2F, S3D, S3E);
 - investigate the expression of SNPs within TFBS (Figure 2C);
 - look into nucleotide conservation (Figure 2D, S3C);
-- determine neighboring TFs of enriched TFBS (Table S3)
+- determine neighboring TFs of enriched TFBS (Supplementary data 2)
 
 ### 5. eQTLs
 Contains the scripts used to 
@@ -52,10 +53,11 @@ Contains all the scripts used for the various analyses involving overlap with GW
 **5.2 emVars in loci:** contains all the scripts used to
 - determine which GWAS SNPs, including candidate SNPs, were tested by SuRE and were emVars;
 - determine the percentages and counts used to generate Figures 4C, 4D, 4E, S4C; 
-- generate GWAS locus plots (Figures 5A, 5B, S5A, S5B);
-- create a plot to show tissue expression of a specific gene (Figure S5C).
+- generate GWAS locus plots (Figures 5A, 5B, S5A, S5B).
 
-**5.3 PAINTOR fine-mapping:** contains the scripts used to perform fine-mapping using PAINTOR.
+**5.3 PAINTOR fine-mapping:** contains the scripts used to 
+- perform fine-mapping using PAINTOR;
+- create a plot to show tissue expression of a specific gene (Figure S5C).
 
 **5.4 Distance to the lead SNP:** contains all the scripts used to
 - determine the distance to the lead SNP for emVars, control SNPs and all SuRE SNPs that reached genome-wide significance in the GWAS and are located within 100kb of a lead SNP 
