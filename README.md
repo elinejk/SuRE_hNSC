@@ -19,6 +19,11 @@ Contains the scripts used to
 - calculate the storey's pi1 between emVar sets;
 - compare emVars and control SNPs based on their expression, fragment count and MAFs (Figures S1C-F)
 
+### 3. DHS
+Contains the scripts used to 
+- process raw WGS data and filtering for heterozygous SNPs (downloading, sorting, annotation)
+- assess allelic imbalance of heterozygous SNPs 
+
 ### 3. Genomic Annotations
 Contains the scripts used to 
 - annotate the SuRE data with enhancers, promoters, DHS, and Gencode genetic information;
