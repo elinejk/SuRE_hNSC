@@ -40,11 +40,8 @@ These scripts require GWAS summary statistics and FUMA output files (files conta
 **surexgwas_ZOOM-plots.R:** plots the same things as the script above, and also adds DNAse I peaks, and the locations of promoters and enhancers.
 
 
-### 2.3 Expression for gene of interest
-**HPA_RNA_expression_overview_plot.R:** this script was used to recreate the RNA tissue expression plots from the human protein atlas.
-
-
 ## 3. PAINTOR fine-mapping
+### 3.1 Fine-mapping and credible sets
 **01_create-locus-files.job:** was used to run the **locus-file_paintor.R** script, which splits the summary statistics into separate files for each locus
 
 **02_create-ld-files.job:** runs the PAINTOR CalcLD_1KG_VCF_flip.py script to create LD files for each locus file
@@ -55,6 +52,8 @@ These scripts require GWAS summary statistics and FUMA output files (files conta
 
 **calculate_credible_set.R:** uses the output from script 04 to define the credible sets
 
+### 3.2 Expression plot for example gene
+**HPA_RNA_expression_overview_plot.R:** this script was used to recreate the RNA tissue expression plots from the human protein atlas.
 
 ## 4. Distance to the lead SNP
 **distance_to_lead_fileprep.R:** for each row (phenotype) in the infofile, it determines which SuRE SNPs are in the locus, if they are part of the GWAS summary statistics, determines their distance to the lead SNP, and filters on genome-wide significance and the shortest distance to the lead SNP. You need to run this script three times: for emVars, for control SNPs, and for all SuRE SNPs
