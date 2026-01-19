@@ -54,29 +54,29 @@ samtools index SRR1091092_aligned_sorted.bam
 
 
 #Merge the 3 runs 
-samtools merge 070126_Merkle_H9_ESC_merged.bam SRR1091088_aligned_sorted.bam SRR1091091_aligned_sorted.bam SRR1091092_aligned_sorted.bam
-samtools index 070126_Merkle_H9_ESC_merged.bam
+samtools merge 070126_H9_ESC_merged.bam SRR1091088_aligned_sorted.bam SRR1091091_aligned_sorted.bam SRR1091092_aligned_sorted.bam
+samtools index 070126_H9_ESC_merged.bam
 
 #Create tarball of raw files to save space
 tar -czvf H9_ESC_wgs_raw.tar.gz *
 
 #Add dummy sample information
-java -jar "/gpfs/work4/0/AdamsLab/Projects/sure/wgs/tools/picard.jar"  AddOrReplaceReadGroups   I=/gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/070126_Merkle_H9_ESC_merged.bam   O=/gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/070126_Merkle_H9_ESC_merged_with_RG.bam   RGID=1   RGLB=lib1   RGPL=illumina   RGPU=unit1   RGSM=Merkle_H9_ESC
+java -jar "/gpfs/work4/0/AdamsLab/Projects/sure/wgs/tools/picard.jar"  AddOrReplaceReadGroups   I=/gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/070126_H9_ESC_merged.bam   O=/gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/070126_H9_ESC_merged_with_RG.bam   RGID=1   RGLB=lib1   RGPL=illumina   RGPU=unit1   RGSM=H9_ESC
 
 #Call variants of processed bam file w/ gatk
 gatk --java-options "-Xmx4g" HaplotypeCaller \
   -R /gpfs/work4/0/AdamsLab/Projects/sure/wgs/tools/ref_fasta/GRCh37.p13.genome.fa \
-  -I /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/070126_Merkle_H9_ESC_merged_with_RG.bam \
-  -O /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/080126_Merkle_H9_ESC_GATK.vcf.gz \
+  -I /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/070126_H9_ESC_merged_with_RG.bam \
+  -O /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/080126_H9_ESC_GATK.vcf.gz \
   -ERC GVCF \
   -G StandardAnnotation \
   -G AS_StandardAnnotation
 
 #Filter for heterozygous SNPs
-bcftools view -i 'GT="0/1"' "/gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/080126_Merkle_H9_ESC_GATK.vcf.gz" -Oz -o /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_Merkle_H9_heterozygous.vcf.gz
-tabix -p vcf /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_Merkle_H9_heterozygous.vcf.gz 
+bcftools view -i 'GT="0/1"' "/gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/080126_H9_ESC_GATK.vcf.gz" -Oz -o /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_H9_heterozygous.vcf.gz
+tabix -p vcf /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_H9_heterozygous.vcf.gz 
 
 #Convert into csv to work in R 
 bcftools query \
          -f '%CHROM,%POS,%ID,%REF,%ALT,%INFO/AF,%INFO/AC\n' \
-         /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_Merkle_H9_heterozygous.vcf.gz > /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_Merkle_H9_heterozygous.csv
+         /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_H9_heterozygous.vcf.gz > /gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_H9_heterozygous.csv
