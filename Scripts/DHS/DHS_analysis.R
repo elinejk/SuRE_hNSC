@@ -8,7 +8,7 @@ library(dplyr)
 set.seed(123)
 
 #Load heterozygous SNPs 
-df <- fread("/gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_Merkle_H9_heterozygous.csv")
+df <- fread("/gpfs/work4/0/AdamsLab/Projects/sure/wgs/processed/120126_H9_heterozygous.csv")
 
 #Give colnames
 colnames(df) <- c("chr", "pos", "ref", "alt", "AD", "RD", "QUAL", "PL") 
@@ -145,3 +145,4 @@ plot_dhs <- ggplot(df3, aes(x = sure_ratio, y = dhs_over_gdna)) +
 # Apply the function to raqtl and ctrl snps
 ctrl_final <- analysis_func(ctrl_overlap, "control SNPs", "#56B4E9")
 raqtl_final <- analysis_func(raqtl_overlap, "emVars", "#E69F00")
+
