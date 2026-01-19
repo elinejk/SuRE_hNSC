@@ -23,10 +23,14 @@ Contains the scripts used to
 Contains the scripts used to 
 - annotate the SuRE data with enhancers, promoters, DHS, and Gencode genetic information;
 - annotate emVars with putative targets;
-- generate plots showing the fold enrichment (Figures 1E, S2B, S2C) or percentage of overlap (Figure S2A);
-- compare SuRe allelic imbalance to DHS sensitivity (Figures 1F, 1G)
+- generate plots showing the fold enrichment (Figures 1E, S2B, S2C) or percentage of overlap (Figure S2A).
 
-### 4. TFBS
+### 4. DHS sensitivity
+Contains the scripts to 
+- compare SuRE allelic imbalance to DHS sensitivity;
+- generate plots showing the results (Figures 1F, 1G).
+
+### 5. TFBS
 Contains the scripts used to 
 - annotate the SuRE data with TFBS from SNP2TFBS;
 - generate plots showing the overlap and concordance with the first TFBS (Figures 1H, 1I, S2D, S2E);
@@ -35,7 +39,7 @@ Contains the scripts used to
 - look into nucleotide conservation (Figure 2D, S3C);
 - determine neighboring TFs of enriched TFBS (Supplementary data 2)
 
-### 5. eQTLs
+### 6. eQTLs
 Contains the scripts used to 
 - overlap emVars and control SNPs with p > 0.5 (null variants) with GTEX V7 eQTL data for brain tissues, fibroblasts, whole blood, and liver;
 - generate plots showing the overlap and concordance with eVariants (Figure 3A);
@@ -43,25 +47,25 @@ Contains the scripts used to
 - generate a 'heatmap' showing the eGenes for a single eVariant with concordance with emVars (Figure 5E); 
 - generate Figure S4B which shows the transcripts for an eGene with eVariant locations, chromHMM data and DNAse I peaks.
 
-### 6. GWAS
+### 7. GWAS
 Contains all the scripts used for the various analyses involving overlap with GWAS data. 
 
-**5.1 LDSC:** contains all the scripts used to 
+**7.1 LDSC:** contains all the scripts used to 
 - run LDSC;
 - generate the plots showing the Enrichment (Figures 4A, 4B). 
 
-**5.2 emVars in loci:** contains all the scripts used to
+**7.2 emVars in loci:** contains all the scripts used to
 - determine which GWAS SNPs, including candidate SNPs, were tested by SuRE and were emVars;
 - determine the percentages and counts used to generate Figures 4C, 4D, 4E, S4C; 
 - generate GWAS locus plots (Figures 5A, 5B, S5A, S5B).
 
-**5.3 PAINTOR fine-mapping:** contains the scripts used to 
+**7.3 PAINTOR fine-mapping:** contains the scripts used to 
 - perform fine-mapping using PAINTOR;
 - create a plot to show tissue expression of a specific gene (Figure S5C).
 
-**5.4 Distance to the lead SNP:** contains all the scripts used to
+**7.4 Distance to the lead SNP:** contains all the scripts used to
 - determine the distance to the lead SNP for emVars, control SNPs and all SuRE SNPs that reached genome-wide significance in the GWAS and are located within 100kb of a lead SNP 
 - generate a plot showing the distribution of the distance to the lead SNP (Figure 4F).
 
-### 6. Statistics
+### 8. Statistics
  Contains the script used to perform the Fisher exact test. It was used for both the genomic annotation comparisons, the TFBS comparisons, eGene tissue distribution comparisons, and distance to the lead SNP comparisons.
