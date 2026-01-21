@@ -56,7 +56,7 @@ These scripts require GWAS summary statistics and FUMA output files (files conta
 **HPA_RNA_expression_overview_plot.R:** this script was used to recreate the RNA tissue expression plots from the human protein atlas.
 
 ## 4. Distance to the lead SNP
-**distance_to_lead_fileprep.R:** for each row (phenotype) in the infofile, it determines which SuRE SNPs are in the locus, if they are part of the GWAS summary statistics, determines their distance to the lead SNP, and filters on genome-wide significance and the shortest distance to the lead SNP. You need to run this script three times: for emVars, for control SNPs, and for all SuRE SNPs
+**distance_to_lead_fileprep.R:** for each row (phenotype) in the infofile, it determines which SuRE SNPs are in the locus, if they are part of the GWAS summary statistics, determines their distance to the lead SNP, and filters on genome-wide significance. You need to run this script three times: for emVars, for control SNPs, and for all SuRE SNPs
 
 **distance_to_lead_plots.R:** creates a histogram to show the distance to the lead SNP for emVars, control SNPs and all SuRE SNPs, for all phenotypes combined. It also calcualtes p-values
 
