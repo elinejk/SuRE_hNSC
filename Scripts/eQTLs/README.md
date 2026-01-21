@@ -17,4 +17,4 @@ Scripts used for all analyses involving eQTLs.
 **eqtl-tissue-conc_heatmap.R:** takes a single SuRE SNP and determines for each tissue if the SNP is present as eVariant in the tissue and if the effect directions are the same. It then combines all the information into a single 'heatmap' (Figure 5E). The locations of exons need to be manually extracted from gencode and entered into the script.
 
 ### 2.4 Gene transcript plot with chromHMM annotations and eQTL locations
-**eqtl_gene_chromhmm_plot.R:** creates a plot containing all protein-coding transcripts of a specific gene, and adds pannels containing chromHMM predictions for NPCs and fibroblasts, DNAse I peaks, and the locations of eQTLs (as seen in Figure S4b).
+**eqtl_gene_chromhmm_plot.R:** creates a plot containing all protein-coding transcripts of a specific gene, and adds pannels containing chromHMM predictions for NPCs and fibroblasts, DNAse I peaks, and the locations of eQTLs (as seen in Figure S4B).
