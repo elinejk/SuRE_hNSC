@@ -41,7 +41,7 @@ The following scripts include information on all TFBS overlapping emVars and con
 **100325_SuRE_figures.R - Highest expressing alleles plot section** was used to determine which TFBS confers high expression of the SNPs it regulates. For each TFBS, the mean expression of the highest-expressing alleles for all SNPs it binds is shown (corresponds to figure 2C in the manuscript). 
 
 *Correlation between nucleotide conservation and emVar abundance within TFBS*   
-**100325_SuRE_figures.R - Correlation plot section** shows the mean correlation between emVar/control fraction and nucleotide conservation for each position within each TFBS (corresponds to figure 2D and S2E in the manuscript).
+**100325_SuRE_figures.R - Correlation plot section** shows the mean correlation between emVar/control fraction and nucleotide conservation for each position within each TFBS (corresponds to figure 2D and S3C in the manuscript).
 
 *Relative enrichment of neighboring TFBS amongst emVars vs control SNPs*  
 **LOLA_JASPAR_twoSets.sh:** this script is ran using the JASPAR enrichment tool from LOLA, see [here](https://bitbucket.org/CBGR/jaspar_enrichment/src/master/) for more details. 
