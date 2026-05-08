@@ -4,7 +4,7 @@ library(readxl)
 library(ggplot2)
 
 ## FILES ##
-emvar_path <- "V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/emVars/freeze7/overlap/hnsc_no_downsampling_snp-permutation_freeze7_controls_04042024_ANNOTATED.txt"
+emvar_path <- "V:/ddata/CELB/poot/Eline Koornstra/SuRE_hNSC_project/emVars/freeze7/overlap/hnsc_no_downsampling_snp-permutation_freeze7_controls_04042024_ANNOTATED.txt" # either emVars or control SNPs
 
 ## READ IN FILES ##
 emvar <- fread(emvar_path)
@@ -70,11 +70,3 @@ table(signif$paper)
 sig_sub <- aggregate(CONCORDANCE ~ SNP_ID, data = signif, FUN = function(x) paste(x, collapse = ", "))
 table(sig_sub$CONCORDANCE)
 
-
-# plots
-ggplot(sure, aes(x = MPRA_logFC, y = SURE_logFC, color = SIGNIF, shape = paper)) + 
-    geom_point() +
-    labs(title = "SuRE hNSC emVars versus NPC MPRA datasets", x = "MPRA logFC", y = "hNSC SuRE logFC") +
-    geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
-    geom_vline(xintercept = 0, linetype = "dashed") +
-    theme_bw()
