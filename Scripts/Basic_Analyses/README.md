@@ -1,7 +1,9 @@
 # General analyses of the data
 
-## 1. Replicate correlation and qqplot
-**replicate_correlation.R:** this script is used to determine the pearson correlation for expression values between the two hNSC replicates.
+## 1. Replicate correlations and qqplot
+**replicate_correlation.R:** this script is used to determine the correlation for activity values (average activity for all fragments covering an allele) between the two hNSC replicates.
+
+**replicate_correlation_stratified.R:** this script splits SNPs based on their p-value, expression levels and coverage. For each bin, it then determines the correlation for activity values (average activity for all fragments covering an allele), the correlation for effect sizes (as log2(REF/ALT)), and the concordance for effect sizes between the two hNSC replicates.
 
 **qqplot_pvalues.R:** creates a qqplot for measured (hNPC.wilcoxon.pvalue) and expected (hNPC.wilcoxon.pvalue.random) p-values, using 100,000 randomly selected SuRE SNPs (Figure S1A).
 
