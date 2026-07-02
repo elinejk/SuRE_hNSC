@@ -3,13 +3,13 @@ Github repository containing the scripts related to the manuscript "Koornstra, E
 
 ## Scripts
 This directory contains the scripts used to generate the data and create several of the plots from the manuscript. \
-Each subdirectory has it's own README explaining the scripts and in which order to run them
+Each subdirectory has it's own README explaining the scripts and in which order to run them.
 
 ### 1. Processing
 Contains the scripts used to 
 - process the raw SuRE data;
 - call expression modulating variants (emVars, variants that significantly alter SuRE transcriptional activity); 
-- generate plots showing SuRE expression
+- generate plots showing SuRE expression.
 
 ### 2. Basic Analyses
 Contains the scripts used to
